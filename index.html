@@ -238,7 +238,8 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
 </div>
 
 <script>
-const ADMIN_PASS = "1234";
+// كلمة المرور الخاصة بالأستاذ أحمد
+const ADMIN_PASS = "yaalibio2003";
 
 let lectures = [
   {
@@ -345,4 +346,4 @@ function deleteLecture(id) {
 
 function filterLectures() {
   const q = document.getElementById('lectureSearch').value.toLowerCase().trim();
-  const filtered = lectures.filter(l => l.title.toLowerCase().includes(q) || l.grade.toLowerCase().includes(q
+  const filtered = lectures.filter(l => l.title.toLowerCase().inc
