@@ -18,7 +18,7 @@ header{background:var(--navy);color:white;position:sticky;top:0;z-index:50;box-s
 .hero{background:radial-gradient(circle at 15% 20%,#284c7b 0,transparent 32%),linear-gradient(125deg,#10233f,#18395e);color:white;padding:70px 0 62px;overflow:hidden}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:30px;align-items:center}.eyebrow{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.3px}.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.25;margin:12px 0}.hero p{color:#d4dfed;max-width:650px;margin:0 0 24px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:12px 20px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13px}.primary{background:var(--gold);color:#17243a}.ghost{border:1px solid #ffffff66;color:white;background:#ffffff0c}.emerald-btn{background:var(--emerald);color:white}
 .profile-card{background:#ffffff12;border:1px solid #ffffff28;border-radius:24px;padding:25px;text-align:center;backdrop-filter:blur(8px)}.avatar{width:94px;height:94px;border-radius:28px;margin:0 auto 12px;background:linear-gradient(145deg,#f3d28e,#fff);color:var(--navy);display:grid;place-items:center;font-size:42px;font-weight:900}.profile-card strong{font-size:20px}.profile-card span{display:block;color:#d2ddec;font-size:12px}
 main{padding:42px 0 60px}.section{margin:0 0 44px}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:18px}.section-head h2{font-size:25px;margin:0;color:var(--navy)}.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}.tag{font-size:11px;background:#eaf0ff;color:#2452b5;padding:5px 10px;border-radius:30px;font-weight:700}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 18px #1b35500a;position:relative}.card .ico{width:43px;height:43px;border-radius:13px;background:#edf2ff;display:grid;place-items:center;font-size:21px;margin-bottom:12px}.card h3{margin:0 0 6px;font-size:17px;color:var(--navy)}.card p{margin:0;color:var(--muted);font-size:13px}.service{display:flex;gap:14px;align-items:flex-start}.service .ico{flex:0 0 43px}.news{display:grid;grid-template-columns:1fr 1fr;gap:16px}.news-item{display:flex;gap:15px;align-items:flex-start}.news-date{min-width:70px;text-align:center;border-radius:12px;background:#edf2ff;padding:8px;color:#2452b5;font-size:11px;font-weight:700}.news-item h3{font-size:15px;margin:0 0 5px;color:var(--navy)}.news-item p{font-size:12px;margin:0;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 18px #1b35500a;position:relative}.card .ico{width:43px;height:43px;border-radius:13px;background:#edf2ff;display:grid;place-items:center;font-size:21px;margin-bottom:12px}.card h3{margin:0 0 6px;font-size:17px;color:var(--navy)}.card p{margin:0;color:var(--muted);font-size:13px}.service{display:flex;gap:14px;align-items:flex-start}.service .ico{flex:0 0 43px}.news{display:grid;grid-template-columns:1fr 1fr;gap:16px}.news-item{display:flex;gap:15px;align-items:flex-start}.news-date{min-width:70px;text-align:center;border-radius:12px;background:#edf2ff;padding:8px;color:#2452b5;font-size:11px;font-weight:700}.news-item h3{font-size:15px;margin:0 0 5px;color:var(--navy)}.news-item p{font-size:12px;margin:0;color:var(--muted)}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.sample{height:150px;border-radius:16px;background:linear-gradient(135deg,#18395e,#3674bd);display:grid;place-items:center;color:white;text-align:center;padding:18px;font-weight:800}.sample:nth-child(2){background:linear-gradient(135deg,#6a4c93,#b58bd7)}.sample:nth-child(3){background:linear-gradient(135deg,#1c685e,#6ab5a1)}
 .contact{background:var(--navy);color:white;border-radius:22px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.contact p{color:#d2ddec;margin:4px 0 0;font-size:13px}.contact .btn{white-space:nowrap}
 footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line)}
@@ -83,14 +83,14 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div class="section-head">
       <div>
         <h2>أهلاً بك في المنصة</h2>
-        <p>مساحة تجمع بين المحتوى التعليمي مادة الأحياء والخدمات المكتبية والإبداعية.</p>
+        <p>مساحة تجمع بين المحتوى التعليمي لمادة الأحياء والخدمات المكتبية والإبداعية.</p>
       </div>
       <span class="tag">بايو بلس Bio Plus</span>
     </div>
-    <div class="grid">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:16px;">
       <article class="card"><div class="ico">🎓</div><h3>محتوى تعليمي</h3><p>محاضرات تصويرية وملخصات دقيقة لمادة الأحياء لكافة الصفوف.</p></article>
       <article class="card"><div class="ico">📰</div><h3>أخبار موثوقة</h3><p>عرض القرارات والتنويهات التعليمية الرسمية والمستجدات أولاً بأول.</p></article>
-      <article class="card"><div class="ico">✦</div><h3>خدمات احترافية</h3><p>طباعة وتصميم وتنسيق الملفات والبحوث والتقارير بدقة عالية.</p></article>
+      <article class="card"><div class="ico">✦</div><h3>خدمات احترافية</h3><p>تصميم وتنسيق الأسئلة الامتحانية والمواد التعليمية بدقة عالية.</p></article>
     </div>
   </section>
 
@@ -103,7 +103,7 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
       </div>
       <input class="search" id="lectureSearch" oninput="filterLectures()" placeholder="ابحث في المحاضرات..." aria-label="ابحث في المحاضرات">
     </div>
-    <div class="grid" id="lecturesList"></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px;" id="lecturesList"></div>
     <div id="noLectures" style="display:none;text-align:center;padding:30px;color:var(--muted);">لا توجد محاضرات حالياً.</div>
   </section>
 
@@ -120,21 +120,17 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div id="noNews" style="display:none;text-align:center;padding:30px;color:var(--muted);">لا توجد أخبار حالياً.</div>
   </section>
 
-  <!-- Services -->
+  <!-- Services (تم الإبقاء على الخدمتين الأساسيتين فقط) -->
   <section class="section" id="services">
     <div class="section-head">
       <div>
         <h2>الخدمات المتوفرة</h2>
-        <p>خدمات طباعية ومكتبية وتصميمية متكاملة.</p>
+        <p>خدمات تصميم وتنسيق تعليمية متكاملة.</p>
       </div>
     </div>
     <div class="grid">
-      <article class="card service"><div class="ico">🖨️</div><div><h3>الطباعة والتنسيق</h3><p>طباعة ملازم وبحوث وتقارير وتنسيق المستندات والكتب.</p></div></article>
-      <article class="card service"><div class="ico">⌨️</div><div><h3>تحويل خط اليد</h3><p>تحويل الكتابة اليدوية إلى ملفات Word وPDF منظمة.</p></div></article>
-      <article class="card service"><div class="ico">📊</div><div><h3>برامج أوفيس</h3><p>إعداد ملفات Word وExcel وعروض PowerPoint تفاعلية.</p></div></article>
       <article class="card service"><div class="ico">🎨</div><div><h3>التصميم والغرافيك</h3><p>تصميم منشورات وإعلانات ومواد تعليمية وبوسترات.</p></div></article>
       <article class="card service"><div class="ico">📝</div><div><h3>إعداد الأسئلة</h3><p>تنسيق الأسئلة الامتحانية والشهرية بصورة مرتبة وأكاديمية.</p></div></article>
-      <article class="card service"><div class="ico">📚</div><div><h3>إعداد الملازم</h3><p>تنسيق وإخراج الملازم والملاحظات الامتحانية بوضوح.</p></div></article>
     </div>
   </section>
 
@@ -149,7 +145,7 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div class="gallery">
       <div class="sample">تصاميم تعليمية</div>
       <div class="sample">إعلانات ومنشورات</div>
-      <div class="sample">تنسيق وطباعة ملازم</div>
+      <div class="sample">تنسيق أسئلة امتحانية</div>
     </div>
   </section>
 
@@ -340,4 +336,15 @@ function renderLectures(data) {
       btnHtml = `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playYTVideo('${getEmbedUrl(item.url)}', '${item.title}')"><i class="fa-solid fa-play"></i> مشاهدة</button>`;
     } else {
       badgeHtml = `<span class="badge badge-pdf"><i class="fa-solid fa-file-pdf"></i> ملف PDF</span>`;
-      btnHtml = `<a class="btn primary" style="padding:6px 12px;font-size:12px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file
+      btnHtml = `<a class="btn primary" style="padding:6px 12px;font-size:12px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`;
+    }
+
+    card.innerHTML = `
+      <button class="del-btn" onclick="deleteLecture('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+      ${badgeHtml}
+      <h3 style="margin-top:5px;">${item.title}</h3>
+      <p style="color:var(--blue);font-weight:bold;font-size:11px;margin-bottom:6px;">${item.grade}</p>
+      <p>${item.desc || ''}</p>
+      <div style="margin-top:14px;">${btnHtml}</div>
+    `;
+    list.ap
