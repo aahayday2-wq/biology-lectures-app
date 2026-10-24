@@ -48,10 +48,10 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
       <a href="#works">أعمالي</a>
       <a href="#contact">تواصل</a>
     </nav>
-    <div style="display:flex;gap:8px;">
+    <div style="display:flex;gap:6px;flex-wrap:wrap;">
       <button class="btn primary" onclick="checkAuth('addLectureModal')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
       <button class="btn ghost" onclick="checkAuth('addNewsModal')"><i class="fa-solid fa-bullhorn"></i> خبر جديد</button>
-      <button class="btn ghost" onclick="checkAuth('settingsModal')" style="padding:10px 14px;"><i class="fa-solid fa-gear"></i></button>
+      <button class="btn ghost" onclick="checkAuth('settingsModal')" style="padding:10px 12px;"><i class="fa-solid fa-gear"></i></button>
     </div>
   </div>
 </header>
@@ -354,4 +354,189 @@ function saveLecture(e) {
   e.preventDefault();
   const type = document.getElementById('lecType').value;
   const title = document.getElementById('lecTitle').value;
-  con
+  const grade = document.getElementById('lecGrade').value;
+  const desc = document.getElementById('lecDesc').value;
+
+  if(type === 'LOCAL_VIDEO') {
+    const fileInput = document.getElementById('lecFile');
+    if(!fileInput.files || !fileInput.files[0]) {
+      alert("الرجاء اختيار ملف فيديو من جهازك!");
+      return;
+    }
+    const file = fileInput.files[0];
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      const newLec = {
+        id: Date.now().toString(),
+        title: title,
+        grade: grade,
+        type: 'LOCAL_VIDEO',
+        src: evt.target.result,
+        desc: desc
+      };
+      lectures.unshift(newLec);
+      saveStorage();
+      renderLectures(lectures);
+      closeModal('addLectureModal');
+      e.target.reset();
+    };
+    reader.readAsDataURL(file);
+  } else {
+    const url = document.getElementById('lecUrl').value;
+    const newLec = {
+      id: Date.now().toString(),
+      title: title,
+      grade: grade,
+      type: type,
+      url: url,
+      desc: desc
+    };
+    lectures.unshift(newLec);
+    saveStorage();
+    renderLectures(lectures);
+    closeModal('addLectureModal');
+    e.target.reset();
+  }
+}
+
+function deleteLecture(id) {
+  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
+  if(p === ADMIN_PASS) {
+    lectures = lectures.filter(l => l.id !== id);
+    saveStorage();
+    renderLectures(lectures);
+  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
+}
+
+function filterLectures() {
+  const q = document.getElementById('lectureSearch').value.toLowerCase().trim();
+  const filtered = lectures.filter(l => l.title.toLowerCase().includes(q) || l.grade.toLowerCase().includes(q));
+  renderLectures(filtered);
+}
+
+// News
+function renderNews(data) {
+  const list = document.getElementById('newsList');
+  const empty = document.getElementById('noNews');
+  list.innerHTML = '';
+  if(data.length === 0) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  data.forEach(item => {
+    const card = document.createElement('article');
+    card.className = 'card news-item';
+    card.style.position = 'relative';
+    card.innerHTML = `
+      <button class="del-btn" onclick="deleteNews('${item.id}')"><i class="fa-solid fa-trash"></i></button>
+      <div class="news-date">${item.date}</div>
+      <div>
+        <h3>${item.title}</h3>
+        <p>${item.content}</p>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function saveNews(e) {
+  e.preventDefault();
+  const newN = {
+    id: Date.now().toString(),
+    title: document.getElementById('newsTitle').value,
+    date: document.getElementById('newsDate').value,
+    content: document.getElementById('newsContent').value
+  };
+  news.unshift(newN);
+  saveStorage();
+  renderNews(news);
+  closeModal('addNewsModal');
+  e.target.reset();
+}
+
+function deleteNews(id) {
+  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
+  if(p === ADMIN_PASS) {
+    news = news.filter(n => n.id !== id);
+    saveStorage();
+    renderNews(news);
+  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
+}
+
+function filterNews() {
+  const q = document.getElementById('newsSearch').value.toLowerCase().trim();
+  const filtered = news.filter(n => n.title.toLowerCase().includes(q) || n.content.toLowerCase().includes(q));
+  renderNews(filtered);
+}
+
+// Helpers
+function getEmbedUrl(url) {
+  let id = '';
+  if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split('?')[0];
+  else if(url.includes('watch?v=')) id = url.split('watch?v=')[1].split('&')[0];
+  return `https://www.youtube.com/embed/${id}?autoplay=1`;
+}
+
+function playYTVideo(url, title) {
+  const container = document.getElementById('videoContainer');
+  container.innerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;"><iframe src="${url}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe></div>`;
+  document.getElementById('videoModalTitle').textContent = title;
+  openModal('videoViewerModal');
+}
+
+function playLocalVideo(src, title) {
+  const container = document.getElementById('videoContainer');
+  container.innerHTML = `<video src="${src}" controls autoplay style="width:100%;max-height:70vh;display:block;"></video>`;
+  document.getElementById('videoModalTitle').textContent = title;
+  openModal('videoViewerModal');
+}
+
+function closeVideoViewer() {
+  document.getElementById('videoContainer').innerHTML = '';
+  closeModal('videoViewerModal');
+}
+
+function exportData() {
+  const data = { lectures, news };
+  const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
+  const a = document.createElement('a');
+  a.href = str;
+  a.download = `ahmed_biology_backup_${Date.now()}.json`;
+  a.click();
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(evt) {
+    try {
+      const data = JSON.parse(evt.target.result);
+      if(data.lectures && data.news) {
+        lectures = data.lectures;
+        news = data.news;
+        saveStorage();
+        renderLectures(lectures);
+        renderNews(news);
+        alert('تمت استعادة البيانات بنجاح!');
+        closeModal('settingsModal');
+      }
+    } catch(err) { alert('الملف غير صالح'); }
+  };
+  reader.readAsText(file);
+}
+
+function clearAllData() {
+  let p = prompt("أدخل كلمة المرور لتأكيد المسح الكامل:");
+  if(p === ADMIN_PASS) {
+    if(confirm('هل أنت متأكد من مسح جميع المحاضرات والأخبار؟')) {
+      lectures = []; news = [];
+      saveStorage();
+      renderLectures(lectures);
+      renderNews(news);
+      closeModal('settingsModal');
+    }
+  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
+}
+</script>
+</body>
+</html>
