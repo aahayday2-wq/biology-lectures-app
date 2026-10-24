@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأستاذ أحمد البايولوجي - منصة التعليم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary), #1e293b);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .hero-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
+
+        .hero-card h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .grades-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .grade-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 12px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
+
+        .grade-btn.active, .grade-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .add-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .lectures-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .lecture-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .lecture-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .badge {
+            background: #e0e7ff;
+            color: #3730a3;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .watch-btn {
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: var(--danger);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* Modal Form */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>الأستاذ أحمد البايولوجي</h1>
+        <p>منصة تعليمية ورقمية لإدارة المحاضرات والدروس</p>
+    </header>
+
+    <div class="container">
+        <div class="hero-card">
+            <h2>مرحباً بكم في المنصة</h2>
+            <p>اختر الصف الدراسي لمتابعة المحاضرات والوسائل التعليمية.</p>
+        </div>
+
+        <div class="grades-nav">
+            <button class="grade-btn active" onclick="selectGrade('الأول المتوسط')">الأول المتوسط</button>
+            <button class="grade-btn" onclick="selectGrade('الثاني المتوسط')">الثاني المتوسط</button>
+            <button class="grade-btn" onclick="selectGrade('الثالث المتوسط')">الثالث المتوسط</button>
+            <button class="grade-btn" onclick="selectGrade('الرابع العلمي')">الرابع العلمي</button>
+            <button class="grade-btn" onclick="selectGrade('الخامس العلمي')">الخامس العلمي</button>
+            <button class="grade-btn" onclick="selectGrade('السادس العلمي')">السادس العلمي</button>
+        </div>
+
+        <div class="section-title">
+            <span id="current-grade-title">قسم الأول المتوسط</span>
+            <button class="add-btn" onclick="openModal()">+ إضافة محاضرة</button>
+        </div>
+
+        <div class="lectures-list" id="lectures-container">
+            <p style="text-align:center; color:#64748b; padding:2rem;">جاري تحميل المحاضرات...</p>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة محاضرة -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h3>إضافة محاضرة جديدة</h3>
+            <div class="form-group">
+                <label>عنوان المحاضرة</label>
+                <input type="text" id="lecTitle" placeholder="مثال: محاضرة أولى جزء أول">
+            </div>
+            <div class="form-group">
+                <label>رابط الفيديو (يوتيوب)</label>
+                <input type="url" id="lecUrl" placeholder="https://youtube.com/...">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
+                <button class="add-btn" onclick="saveLecture()">حفظ المحاضرة</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- استدعاء مكتبات فايربيس (نسخة الـ Web Modular) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addFirestoreData, getDocs, deleteDoc, doc, addDoc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // ==========================================
+        // ضع معلومات مشروعك في Firebase هنا حصراً
+        // ==========================================
+        const firebaseConfig = {
+            apiKey: "PUT_YOUR_API_KEY_HERE",
+            authDomain: "PUT_YOUR_AUTH_DOMAIN_HERE",
+            projectId: "PUT_YOUR_PROJECT_ID_HERE",
+            storageBucket: "PUT_YOUR_STORAGE_BUCKET_HERE",
+            messagingSenderId: "PUT_YOUR_MESSAGING_SENDER_ID_HERE",
+            appId: "PUT_YOUR_APP_ID_HERE"
+        };
+
+        // تهيئة فايربيس
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        let currentGrade = 'الأول المتوسط';
+        let lectures = [];
+
+        window.selectGrade = function(grade) {
+            currentGrade = grade;
+            document.getElementById('current-grade-title').innerText = 'قسم ' + grade;
+            
+            let buttons = document.querySelectorAll('.grade-btn');
+            buttons.forEach(btn => {
+                if(btn.innerText === grade) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
+
+            renderLectures();
+        }
+
+        // جلب المحاضرات مباشرة وبشكل حي من قاعدة بيانات فايربيس سحابياً
+        function fetchLectures() {
+            const container = document.getElementById('lectures-container');
+            
+            // استخدام onSnapshot لتحديث البيانات فوراً عند أي إضافة أو حذف لدى أي طالب
+            onSnapshot(collection(db, "lectures"), (snapshot) => {
+                lectures = [];
+                snapshot.forEach((docSnap) => {
+                    lectures.push({
+                        id: docSnap.id,
+                        ...docSnap.data()
+                    });
+                });
+                renderLectures();
+            }, (error) => {
+                console.error("خطأ في جلب البيانات: ", error);
+                container.innerHTML = '<p style="text-align:center; color:var(--danger); padding:2rem;">خطأ في الاتصال بقاعدة البيانات. تأكد من إعدادات Firebase.</p>';
+            });
+        }
+
+        function renderLectures() {
+            let container = document.getElementById('lectures-container');
+            container.innerHTML = '';
+
+            let filtered = lectures.filter(l => l.grade === currentGrade);
+
+            if(filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#64748b; padding:2rem;">لا توجد محاضرات مضافة لهذا الصف حالياً.</p>';
+                return;
+            }
+
+            filtered.forEach((lec) => {
+                let card = document.createElement('div');
+                card.className = 'lecture-card';
+                card.innerHTML = `
+                    <div class="lecture-info">
+                        <span class="badge">فيديو يوتيوب</span>
+                        <h4>${lec.title}</h4>
+                    </div>
+                    <div class="actions">
+                        <a href="${lec.url}" target="_blank" class="watch-btn">▶ مشاهدة</a>
+                        <button class="delete-btn" onclick="deleteLecture('${lec.id}')">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        window.openModal = function() {
+            document.getElementById('addModal').style.display = 'flex';
+        }
+
+        window.closeModal = function() {
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('lecTitle').value = '';
+            document.getElementById('lecUrl').value = '';
+        }
+
+        // حفظ المحاضرة في السحابة لترو كل الطلاب فوراً
+        window.saveLecture = async function() {
+            let title = document.getElementById('lecTitle').value;
+            let url = document.getElementById('lecUrl').value;
+
+            if(!title || !url) {
+                alert('يرجى إدخال العنوان والرابط');
+                return;
+            }
+
+            try {
+                await addDoc(collection(db, "lectures"), {
+                    grade: currentGrade,
+                    title: title,
+                    url: url,
+                    createdAt: Date.now()
+                });
+                closeModal();
+            } catch (e) {
+                console.error("خطأ في الإضافة: ", e);
+                alert("حدث خطأ أثناء حفظ المحاضرة.");
+            }
+        }
+
+        window.deleteLecture = async function(id) {
+            if(confirm('هل أنت تأكد من حذف هذه المحاضرة؟')) {
+                try {
+                    await deleteDoc(doc(db, "lectures", id));
+                } catch (e) {
+                    console.error("خطأ في الحذف: ", e);
+                    alert("تعذر حذف المحاضرة.");
+                }
+            }
+        }
+
+        // بدء جلب البيانات فور تحميل الصفحة
+        fetchLectures();
+    </script>
+</body>
+</html>
