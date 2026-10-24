@@ -18,11 +18,14 @@ header{background:var(--navy);color:white;position:sticky;top:0;z-index:50;box-s
 .hero{background:radial-gradient(circle at 15% 20%,#284c7b 0,transparent 32%),linear-gradient(125deg,#10233f,#18395e);color:white;padding:70px 0 62px;overflow:hidden}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:30px;align-items:center}.eyebrow{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.3px}.hero h1{font-size:clamp(30px,5vw,50px);line-height:1.25;margin:12px 0}.hero p{color:#d4dfed;max-width:650px;margin:0 0 24px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:12px 20px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13px}.primary{background:var(--gold);color:#17243a}.ghost{border:1px solid #ffffff66;color:white;background:#ffffff0c}.emerald-btn{background:var(--emerald);color:white}
 .profile-card{background:#ffffff12;border:1px solid #ffffff28;border-radius:24px;padding:25px;text-align:center;backdrop-filter:blur(8px)}.avatar{width:94px;height:94px;border-radius:28px;margin:0 auto 12px;background:linear-gradient(145deg,#f3d28e,#fff);color:var(--navy);display:grid;place-items:center;font-size:42px;font-weight:900}.profile-card strong{font-size:20px}.profile-card span{display:block;color:#d2ddec;font-size:12px}
 main{padding:42px 0 60px}.section{margin:0 0 44px}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:18px}.section-head h2{font-size:25px;margin:0;color:var(--navy)}.section-head p{margin:3px 0 0;color:var(--muted);font-size:13px}
+.grade-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.grade-tab{background:white;border:1px solid var(--line);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;font-weight:bold;color:var(--muted);transition:0.2s}
+.grade-tab.active{background:var(--blue);color:white;border-color:var(--blue)}
 .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 5px 18px #1b35500a;position:relative}.card .ico{width:43px;height:43px;border-radius:13px;background:#edf2ff;display:grid;place-items:center;font-size:21px;margin-bottom:12px}.card h3{margin:0 0 6px;font-size:17px;color:var(--navy)}.card p{margin:0;color:var(--muted);font-size:13px}.service{display:flex;gap:14px;align-items:flex-start}.service .ico{flex:0 0 43px}.news{display:grid;grid-template-columns:1fr 1fr;gap:16px}.news-item{display:flex;gap:15px;align-items:flex-start}.news-date{min-width:70px;text-align:center;border-radius:12px;background:#edf2ff;padding:8px;color:#2452b5;font-size:11px;font-weight:700}.news-item h3{font-size:15px;margin:0 0 5px;color:var(--navy)}.news-item p{font-size:12px;margin:0;color:var(--muted)}
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.sample{height:150px;border-radius:16px;background:linear-gradient(135deg,#18395e,#3674bd);display:grid;place-items:center;color:white;text-align:center;padding:18px;font-weight:800}.sample:nth-child(2){background:linear-gradient(135deg,#6a4c93,#b58bd7)}.sample:nth-child(3){background:linear-gradient(135deg,#1c685e,#6ab5a1)}
 .contact{background:var(--navy);color:white;border-radius:22px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.contact p{color:#d2ddec;margin:4px 0 0;font-size:13px}.contact .btn{white-space:nowrap}
 footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line)}
-.search{width:100%;max-width:300px;padding:10px 13px;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:12px;background:white}
+.search{width:100%;max-width:260px;padding:9px 12px;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:12px;background:white}
 .badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:bold;margin-bottom:6px}.badge-video{background:#e8f5e9;color:#1b5e20}.badge-yt{background:#ffebee;color:#c62828}.badge-pdf{background:#e0f7fa;color:#006064}
 .del-btn{position:absolute;left:12px;top:12px;background:#ffebee;color:#d32f2f;border:0;padding:5px 8px;border-radius:8px;cursor:pointer;font-size:11px}
 .modal{position:fixed;inset:0;background:rgba(16,35,63,0.8);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:0.3s}.modal.active{opacity:1;pointer-events:auto}
@@ -98,12 +101,24 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div class="section-head">
       <div>
         <h2>المحاضرات والملخصات</h2>
-        <p>دروس فيديو وملفات PDF لمادة الأحياء.</p>
+        <p>دروس فيديو وملفات PDF حسب الصفوف الدراسية.</p>
       </div>
-      <input class="search" id="lectureSearch" oninput="filterLectures()" placeholder="ابحث في المحاضرات..." aria-label="ابحث في المحاضرات">
+      <input class="search" id="lectureSearch" oninput="filterLectures()" placeholder="ابحث عن محاضرة..." aria-label="ابحث عن محاضرة">
     </div>
+
+    <!-- صفوف التصفية السريعة -->
+    <div class="grade-filters" id="gradeFilters">
+      <div class="grade-tab active" onclick="filterByGrade('الكل', this)">الكل</div>
+      <div class="grade-tab" onclick="filterByGrade('الأول المتوسط', this)">الأول المتوسط</div>
+      <div class="grade-tab" onclick="filterByGrade('الثاني المتوسط', this)">الثاني المتوسط</div>
+      <div class="grade-tab" onclick="filterByGrade('الثالث المتوسط', this)">الثالث المتوسط</div>
+      <div class="grade-tab" onclick="filterByGrade('الرابع العلمي', this)">الرابع العلمي</div>
+      <div class="grade-tab" onclick="filterByGrade('الخامس العلمي', this)">الخامس العلمي</div>
+      <div class="grade-tab" onclick="filterByGrade('السادس العلمي', this)">السادس العلمي</div>
+    </div>
+
     <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px;" id="lecturesList"></div>
-    <div id="noLectures" style="display:none;text-align:center;padding:30px;color:var(--muted);">لا توجد محاضرات حالياً.</div>
+    <div id="noLectures" style="display:none;text-align:center;padding:30px;color:var(--muted);">لا توجد محاضرات في هذا القسم حالياً.</div>
   </section>
 
   <!-- News -->
@@ -172,31 +187,35 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
     <h3 style="margin-top:0;color:var(--navy);">إضافة محاضرة جديدة</h3>
     <form onsubmit="saveLecture(event)">
       <div class="form-group"><label>عنوان المحاضرة</label><input type="text" id="lecTitle" required placeholder="مثال: الخلية التركيب والوظيفة"></div>
-      <div class="form-group"><label>الصف / المرحلة</label><input type="text" id="lecGrade" required placeholder="مثال: السادس العلمي"></div>
+      
+      <div class="form-group">
+        <label>الصف الدراسي</label>
+        <select id="lecGrade" required>
+          <option value="الأول المتوسط">الأول المتوسط</option>
+          <option value="الثاني المتوسط">الثاني المتوسط</option>
+          <option value="الثالث المتوسط">الثالث المتوسط</option>
+          <option value="الرابع العلمي">الرابع العلمي</option>
+          <option value="الخامس العلمي">الخامس العلمي</option>
+          <option value="السادس العلمي" selected>السادس العلمي</option>
+        </select>
+      </div>
+
       <div class="form-group">
         <label>نوع المحتوى</label>
         <select id="lecType" onchange="toggleInputType()">
-          <option value="LOCAL_VIDEO">فيديو مباشر (من الجهاز / الهاتف)</option>
           <option value="YT_VIDEO">رابط يوتيوب (YouTube)</option>
           <option value="PDF">ملف PDF / ملخص</option>
         </select>
       </div>
       
-      <!-- Upload local video -->
-      <div class="form-group" id="fileGroup">
-        <label>اختر ملف الفيديو من جهازك</label>
-        <input type="file" id="lecFile" accept="video/*">
-      </div>
-
-      <!-- URL Link -->
-      <div class="form-group" id="urlGroup" style="display:none;">
-        <label id="urlLabel">الرابط</label>
-        <input type="url" id="lecUrl" placeholder="https://...">
+      <div class="form-group" id="urlGroup">
+        <label id="urlLabel">رابط فيديو يوتيوب</label>
+        <input type="url" id="lecUrl" required placeholder="https://...">
       </div>
 
       <div class="form-group"><label>وصف قصير</label><textarea id="lecDesc" rows="2" placeholder="توضيح عن المحاضرة..."></textarea></div>
       <div style="display:flex;gap:10px;margin-top:15px;">
-        <button type="submit" class="btn primary" style="flex:1;">حفظ</button>
+        <button type="submit" class="btn primary" style="flex:1;">حفظ ونشر</button>
         <button type="button" class="btn ghost" style="color:var(--navy);border-color:var(--line);" onclick="closeModal('addLectureModal')">إلغاء</button>
       </div>
     </form>
@@ -242,7 +261,7 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
         <input type="file" id="importFile" accept=".json" onchange="importData(event)" style="display:none;">
       </label>
       <button class="btn ghost" style="color:red;border-color:#ffcdd2;" onclick="clearAllData()"><i class="fa-solid fa-trash"></i> مسح كافة البيانات</button>
-      <button class="btn ghost" style="color:var(--navy);border-color:var(--line);margin-top:10px;" onclick="closeModal('settingsModal')">إغلاق</button>
+      <button class="btn ghost" style="color:var(--navy);border-color:var(--line);margin-top:10px;" onclick="closeModal('settingsModal')">إلغاء</button>
     </div>
   </div>
 </div>
@@ -260,6 +279,8 @@ let news = [
   }
 ];
 
+let currentGradeFilter = 'الكل';
+
 document.getElementById('year').textContent = new Date().getFullYear();
 
 window.onload = function() {
@@ -272,12 +293,8 @@ window.onload = function() {
 };
 
 function saveStorage() {
-  try {
-    localStorage.setItem('ahmed_bio_lectures', JSON.stringify(lectures));
-    localStorage.setItem('ahmed_bio_news', JSON.stringify(news));
-  } catch(e) {
-    alert("تنبيه: حَجْم الفيديو المباشر كَبِير جداً على التخزين المحلي للمتصفح. يُنصح باستخدام فيديوهات بحجم صغير أو رفعها عبر خيار يوتيوب.");
-  }
+  localStorage.setItem('ahmed_bio_lectures', JSON.stringify(lectures));
+  localStorage.setItem('ahmed_bio_news', JSON.stringify(news));
 }
 
 function checkAuth(modalId) {
@@ -294,249 +311,49 @@ function closeModal(id) { document.getElementById(id).classList.remove('active')
 
 function toggleInputType() {
   const type = document.getElementById('lecType').value;
-  const fileGrp = document.getElementById('fileGroup');
-  const urlGrp = document.getElementById('urlGroup');
   const urlLabel = document.getElementById('urlLabel');
-
-  if(type === 'LOCAL_VIDEO') {
-    fileGrp.style.display = 'block';
-    urlGrp.style.display = 'none';
-  } else if(type === 'YT_VIDEO') {
-    fileGrp.style.display = 'none';
-    urlGrp.style.display = 'block';
+  if(type === 'YT_VIDEO') {
     urlLabel.textContent = 'رابط فيديو يوتيوب';
   } else {
-    fileGrp.style.display = 'none';
-    urlGrp.style.display = 'block';
     urlLabel.textContent = 'رابط ملف الـ PDF';
   }
 }
 
-// Lectures
+// Lectures Filter & Render
+function filterByGrade(grade, element) {
+  currentGradeFilter = grade;
+  document.querySelectorAll('.grade-tab').forEach(t => t.classList.remove('active'));
+  element.classList.add('active');
+  renderLectures(lectures);
+}
+
 function renderLectures(data) {
   const list = document.getElementById('lecturesList');
   const empty = document.getElementById('noLectures');
+  
+  // فلترة حسب الصف المحدد
+  let filtered = data;
+  if(currentGradeFilter !== 'الكل') {
+    filtered = data.filter(item => item.grade === currentGradeFilter);
+  }
+
+  // فلترة إضافية للبحث النصي
+  const q = document.getElementById('lectureSearch').value.toLowerCase().trim();
+  if(q) {
+    filtered = filtered.filter(l => l.title.toLowerCase().includes(q) || l.grade.toLowerCase().includes(q));
+  }
+
   list.innerHTML = '';
-  if(data.length === 0) { empty.style.display = 'block'; return; }
+  if(filtered.length === 0) { empty.style.display = 'block'; return; }
   empty.style.display = 'none';
 
-  data.forEach(item => {
+  filtered.forEach(item => {
     const card = document.createElement('article');
     card.className = 'card';
     
     let badgeHtml = '';
     let btnHtml = '';
 
-    if(item.type === 'LOCAL_VIDEO') {
-      badgeHtml = `<span class="badge badge-video"><i class="fa-solid fa-video"></i> فيديو مباشر</span>`;
-      btnHtml = `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playLocalVideo('${item.src}', '${item.title}')"><i class="fa-solid fa-play"></i> تشغيل الفيديو</button>`;
-    } else if(item.type === 'YT_VIDEO') {
+    if(item.type === 'YT_VIDEO') {
       badgeHtml = `<span class="badge badge-yt"><i class="fa-brands fa-youtube"></i> فيديو يوتيوب</span>`;
-      btnHtml = `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playYTVideo('${getEmbedUrl(item.url)}', '${item.title}')"><i class="fa-solid fa-play"></i> مشاهدة</button>`;
-    } else {
-      badgeHtml = `<span class="badge badge-pdf"><i class="fa-solid fa-file-pdf"></i> ملف PDF</span>`;
-      btnHtml = `<a class="btn primary" style="padding:6px 12px;font-size:12px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`;
-    }
-
-    card.innerHTML = `
-      <button class="del-btn" onclick="deleteLecture('${item.id}')"><i class="fa-solid fa-trash"></i></button>
-      ${badgeHtml}
-      <h3 style="margin-top:5px;">${item.title}</h3>
-      <p style="color:var(--blue);font-weight:bold;font-size:11px;margin-bottom:6px;">${item.grade}</p>
-      <p>${item.desc || ''}</p>
-      <div style="margin-top:14px;">${btnHtml}</div>
-    `;
-    list.appendChild(card);
-  });
-}
-
-function saveLecture(e) {
-  e.preventDefault();
-  const type = document.getElementById('lecType').value;
-  const title = document.getElementById('lecTitle').value;
-  const grade = document.getElementById('lecGrade').value;
-  const desc = document.getElementById('lecDesc').value;
-
-  if(type === 'LOCAL_VIDEO') {
-    const fileInput = document.getElementById('lecFile');
-    if(!fileInput.files || !fileInput.files[0]) {
-      alert("الرجاء اختيار ملف فيديو من جهازك!");
-      return;
-    }
-    const file = fileInput.files[0];
-    const reader = new FileReader();
-    reader.onload = function(evt) {
-      const newLec = {
-        id: Date.now().toString(),
-        title: title,
-        grade: grade,
-        type: 'LOCAL_VIDEO',
-        src: evt.target.result,
-        desc: desc
-      };
-      lectures.unshift(newLec);
-      saveStorage();
-      renderLectures(lectures);
-      closeModal('addLectureModal');
-      e.target.reset();
-    };
-    reader.readAsDataURL(file);
-  } else {
-    const url = document.getElementById('lecUrl').value;
-    const newLec = {
-      id: Date.now().toString(),
-      title: title,
-      grade: grade,
-      type: type,
-      url: url,
-      desc: desc
-    };
-    lectures.unshift(newLec);
-    saveStorage();
-    renderLectures(lectures);
-    closeModal('addLectureModal');
-    e.target.reset();
-  }
-}
-
-function deleteLecture(id) {
-  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
-  if(p === ADMIN_PASS) {
-    lectures = lectures.filter(l => l.id !== id);
-    saveStorage();
-    renderLectures(lectures);
-  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
-}
-
-function filterLectures() {
-  const q = document.getElementById('lectureSearch').value.toLowerCase().trim();
-  const filtered = lectures.filter(l => l.title.toLowerCase().includes(q) || l.grade.toLowerCase().includes(q));
-  renderLectures(filtered);
-}
-
-// News
-function renderNews(data) {
-  const list = document.getElementById('newsList');
-  const empty = document.getElementById('noNews');
-  list.innerHTML = '';
-  if(data.length === 0) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
-
-  data.forEach(item => {
-    const card = document.createElement('article');
-    card.className = 'card news-item';
-    card.style.position = 'relative';
-    card.innerHTML = `
-      <button class="del-btn" onclick="deleteNews('${item.id}')"><i class="fa-solid fa-trash"></i></button>
-      <div class="news-date">${item.date}</div>
-      <div>
-        <h3>${item.title}</h3>
-        <p>${item.content}</p>
-      </div>
-    `;
-    list.appendChild(card);
-  });
-}
-
-function saveNews(e) {
-  e.preventDefault();
-  const newN = {
-    id: Date.now().toString(),
-    title: document.getElementById('newsTitle').value,
-    date: document.getElementById('newsDate').value,
-    content: document.getElementById('newsContent').value
-  };
-  news.unshift(newN);
-  saveStorage();
-  renderNews(news);
-  closeModal('addNewsModal');
-  e.target.reset();
-}
-
-function deleteNews(id) {
-  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
-  if(p === ADMIN_PASS) {
-    news = news.filter(n => n.id !== id);
-    saveStorage();
-    renderNews(news);
-  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
-}
-
-function filterNews() {
-  const q = document.getElementById('newsSearch').value.toLowerCase().trim();
-  const filtered = news.filter(n => n.title.toLowerCase().includes(q) || n.content.toLowerCase().includes(q));
-  renderNews(filtered);
-}
-
-// Helpers
-function getEmbedUrl(url) {
-  let id = '';
-  if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split('?')[0];
-  else if(url.includes('watch?v=')) id = url.split('watch?v=')[1].split('&')[0];
-  return `https://www.youtube.com/embed/${id}?autoplay=1`;
-}
-
-function playYTVideo(url, title) {
-  const container = document.getElementById('videoContainer');
-  container.innerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;"><iframe src="${url}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe></div>`;
-  document.getElementById('videoModalTitle').textContent = title;
-  openModal('videoViewerModal');
-}
-
-function playLocalVideo(src, title) {
-  const container = document.getElementById('videoContainer');
-  container.innerHTML = `<video src="${src}" controls autoplay style="width:100%;max-height:70vh;display:block;"></video>`;
-  document.getElementById('videoModalTitle').textContent = title;
-  openModal('videoViewerModal');
-}
-
-function closeVideoViewer() {
-  document.getElementById('videoContainer').innerHTML = '';
-  closeModal('videoViewerModal');
-}
-
-function exportData() {
-  const data = { lectures, news };
-  const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(data, null, 2));
-  const a = document.createElement('a');
-  a.href = str;
-  a.download = `ahmed_biology_backup_${Date.now()}.json`;
-  a.click();
-}
-
-function importData(e) {
-  const file = e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = function(evt) {
-    try {
-      const data = JSON.parse(evt.target.result);
-      if(data.lectures && data.news) {
-        lectures = data.lectures;
-        news = data.news;
-        saveStorage();
-        renderLectures(lectures);
-        renderNews(news);
-        alert('تمت استعادة البيانات بنجاح!');
-        closeModal('settingsModal');
-      }
-    } catch(err) { alert('الملف غير صالح'); }
-  };
-  reader.readAsText(file);
-}
-
-function clearAllData() {
-  let p = prompt("أدخل كلمة المرور لتأكيد المسح الكامل:");
-  if(p === ADMIN_PASS) {
-    if(confirm('هل أنت متأكد من مسح جميع المحاضرات والأخبار؟')) {
-      lectures = []; news = [];
-      saveStorage();
-      renderLectures(lectures);
-      renderNews(news);
-      closeModal('settingsModal');
-    }
-  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
-}
-</script>
-</body>
-</html>
+      btnHtml = `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playYTVideo('
