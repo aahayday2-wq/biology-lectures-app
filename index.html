@@ -379,7 +379,25 @@
                 <button class="btn-add admin-btn" onclick="openModal('lecture')" style="display: inline-block;">+ إضافة محاضرة</button>
             </div>
 
-            <div class="item-list" id="lectures-container"><div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div></div>
+            <div class="item-list" id="lectures-container"><div class="item-card">
+                    <div class="item-info">
+                        <span class="tag">فيديو يوتيوب</span>
+                        <h4>محاضرة اولى جزء اول</h4>
+                    </div>
+                    <div class="item-actions">
+                        <a href="https://youtube.com" target="_blank" class="btn-watch">▶ مشاهدة</a>
+                        <button class="btn-delete" onclick="deleteItem(1)">🗑️</button>
+                    </div>
+                </div><div class="item-card">
+                    <div class="item-info">
+                        <span class="tag">فيديو يوتيوب</span>
+                        <h4>محاضرة اولى جزء اول١</h4>
+                    </div>
+                    <div class="item-actions">
+                        <a href="https://youtu.be/0Hx2eh2uFIA?si=7fUhNli68hS_oTm1" target="_blank" class="btn-watch">▶ مشاهدة</a>
+                        <button class="btn-delete" onclick="deleteItem(1792840740143)">🗑️</button>
+                    </div>
+                </div></div>
         </div>
 
         <!-- الملازم -->
@@ -403,7 +421,7 @@
     </div>
 
     <!-- نافذة الإضافة -->
-    <div class="modal" id="addModal">
+    <div class="modal" id="addModal" style="display: none;">
         <div class="modal-content">
             <h3 id="modalTitle">إضافة عنصر جديد</h3>
             <div class="form-group">
@@ -444,7 +462,22 @@
         let currentType = 'lecture';
 
         // بيانات المنصة الأساسية المدمجة
-        let data = [];
+        let data = [
+          {
+                    "id": 1,
+                    "grade": "الأول المتوسط",
+                    "type": "lecture",
+                    "title": "محاضرة اولى جزء اول",
+                    "url": "https://youtube.com"
+          },
+          {
+                    "id": 1792840740143,
+                    "grade": "الأول المتوسط",
+                    "type": "lecture",
+                    "title": "محاضرة اولى جزء اول١",
+                    "url": "https://youtu.be/0Hx2eh2uFIA?si=7fUhNli68hS_oTm1"
+          }
+];
 
         function scrollToGrades() {
             document.getElementById('grades-section').scrollIntoView({ behavior: 'smooth' });
