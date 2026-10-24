@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10233f">
 <title>الأستاذ أحمد البايلوجي | المنصة التعليمية والخدمية</title>
-<!-- FontAwesome Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root{--navy:#10233f;--blue:#1e5eff;--gold:#e7b85c;--ink:#17243a;--muted:#66758b;--paper:#f4f7fb;--line:#e5eaf1;--emerald:#10b981;--purple:#7c3aed}
@@ -25,9 +24,9 @@ main{padding:30px 0 60px}.section{margin:0 0 35px}.section-head{display:flex;jus
 .grade-tab.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
 
 /* Grade Content Panel */
-.grade-panel{display:none;background:white;border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,0.04)}
+.grade-panel{display:none;background:white;border:2px solid var(--gold);border-radius:20px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
 .grade-panel.active{display:block}
-.grade-title{font-size:20px;color:var(--navy);margin-top:0;margin-bottom:16px;display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--paper);padding-bottom:10px}
+.grade-title{font-size:20px;color:var(--navy);margin-top:0;margin-bottom:16px;display:flex;align-items:center;justify-content:between;border-bottom:2px solid var(--paper);padding-bottom:10px}
 
 /* Category Sections */
 .cat-section{margin-bottom:24px}
@@ -310,13 +309,15 @@ function buildGradesUI() {
     panel.className = `grade-panel ${g.id === activeGradeId ? 'active' : ''}`;
     panel.id = g.id;
     panel.innerHTML = `
-      <h3 class="grade-title"><i class="fa-solid fa-graduation-cap" style="color:var(--gold);"></i> قسم ${g.name}</h3>
+      <div class="grade-title">
+        <span><i class="fa-solid fa-graduation-cap" style="color:var(--gold);"></i> قسم ${g.name}</span>
+      </div>
       
       <!-- Lectures -->
       <div class="cat-section">
         <div class="cat-head">
           <h3><i class="fa-solid fa-video" style="color:var(--emerald);"></i> المحاضرات المرئية</h3>
-          <button class="btn emerald-btn" style="padding:4px 10px;font-size:11px;" onclick="checkAuth('addItemModal', '${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
+          <button class="btn emerald-btn" style="padding:5px 12px;font-size:12px;" onclick="checkAuth('addItemModal', '${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
         </div>
         <div class="grid" id="${g.id}_lectures"></div>
       </div>
@@ -325,7 +326,7 @@ function buildGradesUI() {
       <div class="cat-section">
         <div class="cat-head">
           <h3><i class="fa-solid fa-book-open" style="color:var(--blue);"></i> الملازم والملخصات</h3>
-          <button class="btn primary" style="padding:4px 10px;font-size:11px;" onclick="checkAuth('addItemModal', '${g.id}', 'pdfs')"><i class="fa-solid fa-plus"></i> إضافة ملزمة</button>
+          <button class="btn primary" style="padding:5px 12px;font-size:12px;" onclick="checkAuth('addItemModal', '${g.id}', 'pdfs')"><i class="fa-solid fa-plus"></i> إضافة ملزمة</button>
         </div>
         <div class="grid" id="${g.id}_pdfs"></div>
       </div>
@@ -334,7 +335,7 @@ function buildGradesUI() {
       <div class="cat-section">
         <div class="cat-head">
           <h3><i class="fa-solid fa-pen-clip" style="color:var(--purple);"></i> الواجبات والامتحانات</h3>
-          <button class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:4px 10px;font-size:11px;" onclick="checkAuth('addItemModal', '${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة واجب</button>
+          <button class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:5px 12px;font-size:12px;" onclick="checkAuth('addItemModal', '${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة واجب</button>
         </div>
         <div class="grid" id="${g.id}_homeworks"></div>
       </div>
@@ -370,7 +371,7 @@ function renderCategoryList(elementId, items, type, gradeId) {
   if(!container) return;
   container.innerHTML = '';
   if(!items || items.length === 0) {
-    container.innerHTML = `<div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً. ارفع أول عنصر عبر زر الإضافة بالأعلى.</div>`;
+    container.innerHTML = `<div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً. استخدم زر الإضافة بالأعلى لإضافة أول عنصر.</div>`;
     return;
   }
 
@@ -388,5 +389,4 @@ function renderCategoryList(elementId, items, type, gradeId) {
       badge = `<span class="badge badge-pdf">ملف PDF / ملزمة</span>`;
       actionBtn = `<a class="btn primary" style="padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`;
     } else {
-      badge = `<span class="badge badge-hw">واجب / امتحان</span>`;
-  
+      badge = `<span class="badge badge-hw">و
