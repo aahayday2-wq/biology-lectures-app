@@ -24,9 +24,9 @@ main{padding:30px 0 60px}.section{margin:0 0 35px}.section-head{display:flex;jus
 .grade-tab.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
 
 /* Grade Content Panel */
-.grade-panel{display:none;background:white;border:2px solid var(--gold);border-radius:20px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,0.06)}
+.grade-panel{display:none;background:white;border:2px solid var(--gold);border-radius:20px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,0.06);margin-top:15px}
 .grade-panel.active{display:block}
-.grade-title{font-size:20px;color:var(--navy);margin-top:0;margin-bottom:16px;display:flex;align-items:center;justify-content:between;border-bottom:2px solid var(--paper);padding-bottom:10px}
+.grade-title{font-size:20px;color:var(--navy);margin-top:0;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--paper);padding-bottom:10px}
 
 /* Category Sections */
 .cat-section{margin-bottom:24px}
@@ -389,4 +389,110 @@ function renderCategoryList(elementId, items, type, gradeId) {
       badge = `<span class="badge badge-pdf">ملف PDF / ملزمة</span>`;
       actionBtn = `<a class="btn primary" style="padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`;
     } else {
-      badge = `<span class="badge badge-hw">و
+      badge = `<span class="badge badge-hw">واجب / امتحان</span>`;
+      actionBtn = `<a class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-link"></i> عرض الرابط</a>`;
+    }
+
+    card.innerHTML = `
+      <button class="del-btn" onclick="deleteItem('${gradeId}', '${getCategoryKey(type)}', '${item.id}')"><i class="fa-solid fa-trash"></i></button>
+      ${badge}
+      <h4 style="margin-top:4px;">${item.title}</h4>
+      <p>${item.desc || ''}</p>
+      <div style="margin-top:8px;">${actionBtn}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function getCategoryKey(type) {
+  if(type === 'LECTURE') return 'lectures';
+  if(type === 'PDF') return 'pdfs';
+  return 'homeworks';
+}
+
+function saveItem(e) {
+  e.preventDefault();
+  const newItem = {
+    id: Date.now().toString(),
+    title: document.getElementById('itemTitle').value,
+    url: document.getElementById('itemUrl').value,
+    desc: document.getElementById('itemDesc').value
+  };
+
+  appData.grades[currentAddGrade][currentAddCategory].unshift(newItem);
+  saveStorage();
+  renderAll();
+  closeModal('addItemModal');
+  e.target.reset();
+}
+
+function deleteItem(gradeId, catKey, itemId) {
+  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
+  if(p === ADMIN_PASS) {
+    appData.grades[gradeId][catKey] = appData.grades[gradeId][catKey].filter(i => i.id !== itemId);
+    saveStorage();
+    renderAll();
+  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
+}
+
+function renderNews(data) {
+  const list = document.getElementById('newsList');
+  const empty = document.getElementById('noNews');
+  if(!list) return;
+  list.innerHTML = '';
+  if(!data || data.length === 0) { empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+
+  data.forEach(item => {
+    const card = document.createElement('article');
+    card.className = 'news-item';
+    card.innerHTML = `
+      <div class="news-date">${item.date}</div>
+      <div>
+        <h4 style="margin:0 0 3px;font-size:14px;color:var(--navy);">${item.title}</h4>
+        <p style="margin:0;font-size:11px;color:var(--muted);">${item.content}</p>
+      </div>
+    `;
+    list.appendChild(card);
+  });
+}
+
+function getEmbedUrl(url) {
+  let id = '';
+  if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split('?')[0];
+  else if(url.includes('watch?v=')) id = url.split('watch?v=')[1].split('&')[0];
+  return `https://www.youtube.com/embed/${id}?autoplay=1`;
+}
+
+function playYTVideo(url, title) {
+  const container = document.getElementById('videoContainer');
+  container.innerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;"><iframe src="${url}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe></div>`;
+  document.getElementById('videoModalTitle').textContent = title;
+  openModal('videoViewerModal');
+}
+
+function closeVideoViewer() {
+  document.getElementById('videoContainer').innerHTML = '';
+  closeModal('videoViewerModal');
+}
+
+function exportData() {
+  const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
+  const a = document.createElement('a');
+  a.href = str;
+  a.download = `ahmed_biology_backup_${Date.now()}.json`;
+  a.click();
+}
+
+function clearAllData() {
+  let p = prompt("أدخل كلمة المرور لتأكيد المسح:");
+  if(p === ADMIN_PASS) {
+    if(confirm('هل أنت متأكد من مسح كافة بيانات المنصة؟')) {
+      localStorage.removeItem('ahmed_bio_app_data');
+      location.reload();
+    }
+  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
+}
+</script>
+</body>
+</html>
