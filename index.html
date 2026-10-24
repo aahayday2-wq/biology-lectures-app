@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بايو بلس | منصة الأحياء التعليمية</title>
+  <title>منصة الأستاذ أحمد البايلوجي</title>
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Icons -->
@@ -26,7 +26,6 @@
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
-    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 8px;
     }
@@ -52,16 +51,16 @@
           <i class="fa-solid fa-dna"></i>
         </div>
         <div>
-          <h1 class="text-lg font-bold text-white leading-none">بايو بلس <span class="text-xs text-emerald-400 font-normal">Bio Plus</span></h1>
-          <p class="text-xs text-slate-400 mt-1">الأستاذ أحمد عبد العظيم</p>
+          <h1 class="text-lg font-bold text-white leading-none">منصة الأستاذ أحمد البايلوجي</h1>
+          <p class="text-xs text-emerald-400 mt-1">Bio Plus | بايو بلس</p>
         </div>
       </div>
       <div class="flex items-center gap-2">
-        <button onclick="openModal('addModal')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
+        <button onclick="checkAuth('addModal')" class="bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs sm:text-sm transition flex items-center gap-2 shadow-lg shadow-emerald-500/20">
           <i class="fa-solid fa-plus"></i>
           <span class="hidden sm:inline">إضافة محاضرة</span>
         </button>
-        <button onclick="openModal('settingsModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl text-sm transition border border-slate-700">
+        <button onclick="checkAuth('settingsModal')" class="bg-slate-800 hover:bg-slate-700 text-slate-300 p-2.5 rounded-xl text-sm transition border border-slate-700">
           <i class="fa-solid fa-gear"></i>
         </button>
       </div>
@@ -78,7 +77,7 @@
           🧬 المساعد التعليمي الذكي
         </span>
         <h2 class="text-2xl sm:text-3xl font-extrabold text-white mb-2 leading-snug">
-          منصتك الشاملة لمحاضرات ملخصات الأحياء
+          أهلاً بكم في منصة الأستاذ أحمد البايلوجي
         </h2>
         <p class="text-sm text-slate-300 mb-6 leading-relaxed">
           تصفح المحاضرات المرئية، والملخصات بصيغة PDF، ونظم دراستك بسهولة لجميع الصفوف الدراسية.
@@ -89,13 +88,11 @@
 
     <!-- Search and Controls -->
     <div class="glass-card p-4 rounded-2xl mb-8 flex flex-col md:flex-row gap-4 justify-between items-center">
-      <!-- Search Input -->
       <div class="relative w-full md:w-96">
         <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
         <input type="text" id="searchInput" oninput="filterLectures()" placeholder="ابحث عن عنوان المحاضرة أو الفصل..." class="w-full bg-slate-900/80 border border-slate-700 text-white rounded-xl pr-11 pl-4 py-2.5 text-sm focus:outline-none focus:border-emerald-500 transition placeholder-slate-500">
       </div>
 
-      <!-- Filters -->
       <div class="flex items-center gap-2 w-full md:w-auto overflow-x-auto pb-2 md:pb-0 scrollbar-none">
         <select id="gradeFilter" onchange="filterLectures()" class="bg-slate-900/80 border border-slate-700 text-slate-300 text-xs sm:text-sm rounded-xl px-3 py-2.5 focus:outline-none focus:border-emerald-500">
           <option value="ALL">جميع الصفوف</option>
@@ -116,9 +113,7 @@
     </div>
 
     <!-- Lectures Grid -->
-    <div id="lecturesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      <!-- Cards generated dynamically -->
-    </div>
+    <div id="lecturesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
 
     <!-- Empty State -->
     <div id="emptyState" class="hidden text-center py-16">
@@ -126,7 +121,7 @@
         <i class="fa-solid fa-folder-open"></i>
       </div>
       <h3 class="text-lg font-bold text-slate-300">لا توجد محاضرات حالياً</h3>
-      <p class="text-xs text-slate-500 mt-1">اضغط على "إضافة محاضرة" لإضافة أول درس في منصتك.</p>
+      <p class="text-xs text-slate-500 mt-1">اضغط على زر الإضافة بالأعلى لإضافة أول درس.</p>
     </div>
   </main>
 
@@ -201,230 +196,4 @@
   <div id="videoModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
     <div class="w-full max-w-3xl glass-card rounded-3xl overflow-hidden border border-slate-700 shadow-2xl">
       <div class="p-4 flex justify-between items-center border-b border-slate-800">
-        <h3 id="videoModalTitle" class="text-sm sm:text-base font-bold text-white truncate">مشغل المحاضرات</h3>
-        <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white transition px-2">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-      <div class="relative aspect-video bg-black">
-        <iframe id="youtubeIframe" class="w-full h-full" src="" title="YouTube Video Player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- Settings / Backup Modal -->
-  <div id="settingsModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="glass-card w-full max-w-md rounded-3xl p-6 border border-slate-700 shadow-2xl relative">
-      <div class="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
-        <h3 class="text-lg font-bold text-white flex items-center gap-2">
-          <i class="fa-solid fa-sliders text-emerald-400"></i>
-          إدارة البيانات والنسخ الاحتياطي
-        </h3>
-        <button onclick="closeModal('settingsModal')" class="text-slate-400 hover:text-white transition">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <div class="space-y-4">
-        <p class="text-xs text-slate-400 leading-relaxed">
-          تتيح لك هذه الخيارات تنزيل بيانات المحاضرات كملف حفظ، أو استعادتها على أي جهاز آخر دون فقدان المحاضرات المضافة.
-        </p>
-
-        <button onclick="exportData()" class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 border border-slate-700">
-          <i class="fa-solid fa-download text-emerald-400"></i>
-          تنزيل نسخة احتياطية (Export JSON)
-        </button>
-
-        <div>
-          <label class="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-3 px-4 rounded-xl text-xs sm:text-sm transition flex items-center justify-center gap-2 border border-slate-700 cursor-pointer">
-            <i class="fa-solid fa-upload text-teal-400"></i>
-            استعادة نسخة احتياطية (Import JSON)
-            <input type="file" id="importFile" accept=".json" onchange="importData(event)" class="hidden">
-          </label>
-        </div>
-
-        <hr class="border-slate-800 my-2">
-
-        <button onclick="clearAllData()" class="w-full bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 font-semibold py-2.5 px-4 rounded-xl text-xs transition border border-rose-500/30 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-trash-can"></i>
-          حذف كافة المحاضرات المخزنة
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JavaScript App Engine -->
-  <script>
-    // Initial Seed Data
-    const defaultLectures = [
-      {
-        id: '1',
-        title: 'مقدمة في علم الأحياء والخلية',
-        grade: 'السادس العلمي',
-        chapter: 'الفصل الأول',
-        type: 'VIDEO',
-        url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        desc: 'شرح مفصل عن مفهوم الخلية والنظرية الخلوية وأجزاء الخلية الأساسية.'
-      },
-      {
-        id: '2',
-        title: 'ملخص الفصل الأول - التركيب الخلوي (PDF)',
-        grade: 'السادس العلمي',
-        chapter: 'الفصل الأول',
-        type: 'PDF',
-        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-        desc: 'ملف يحتوي على الرسوم والمخططات الشاملة للفصل الأول.'
-      }
-    ];
-
-    let lectures = [];
-
-    // Load Data on Initialization
-    window.onload = function() {
-      const saved = localStorage.getItem('bioplus_lectures');
-      if (saved) {
-        try {
-          lectures = JSON.parse(saved);
-        } catch(e) {
-          lectures = defaultLectures;
-        }
-      } else {
-        lectures = defaultLectures;
-        saveToLocalStorage();
-      }
-      renderLectures(lectures);
-    };
-
-    function saveToLocalStorage() {
-      localStorage.setItem('bioplus_lectures', JSON.stringify(lectures));
-    }
-
-    // Render Lectures Grid
-    function renderLectures(data) {
-      const container = document.getElementById('lecturesContainer');
-      const emptyState = document.getElementById('emptyState');
-      container.innerHTML = '';
-
-      if (data.length === 0) {
-        emptyState.classList.remove('hidden');
-        return;
-      } else {
-        emptyState.classList.add('hidden');
-      }
-
-      data.forEach(item => {
-        const card = document.createElement('div');
-        card.className = "glass-card rounded-2xl overflow-hidden hover:border-emerald-500/50 transition duration-300 flex flex-col justify-between group";
-
-        const isVideo = item.type === 'VIDEO';
-        const iconClass = isVideo ? 'fa-youtube text-red-500' : 'fa-file-pdf text-rose-500';
-        const badgeColor = isVideo ? 'bg-red-500/10 text-red-400 border-red-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20';
-
-        card.innerHTML = `
-          <div class="p-5">
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-[11px] font-semibold px-2.5 py-1 rounded-full border ${badgeColor}">
-                <i class="fa-solid ${isVideo ? 'fa-play' : 'fa-file-lines'} ml-1"></i> ${isVideo ? 'فيديو' : 'ملف PDF'}
-              </span>
-              <span class="text-xs text-slate-400 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700">
-                ${item.grade}
-              </span>
-            </div>
-
-            <h3 class="font-bold text-white text-base mb-1 group-hover:text-emerald-400 transition line-clamp-2">
-              ${item.title}
-            </h3>
-            
-            <p class="text-xs text-emerald-400 font-semibold mb-2">${item.chapter}</p>
-            
-            <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed">
-              ${item.desc || 'لا يوجد وصف إضافي لهذه المحاضرة.'}
-            </p>
-          </div>
-
-          <div class="px-5 py-3 bg-slate-900/50 border-t border-slate-800/80 flex items-center justify-between">
-            ${isVideo ? `
-              <button onclick="playVideo('${getYouTubeEmbedUrl(item.url)}', '${item.title}')" class="text-xs font-bold text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-circle-play text-base"></i> مشاهدة المحاضرة
-              </button>
-            ` : `
-              <a href="${item.url}" target="_blank" class="text-xs font-bold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition">
-                <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i> فتح الـ PDF
-              </a>
-            `}
-
-            <button onclick="deleteLecture('${item.id}')" class="text-slate-500 hover:text-rose-400 text-xs transition p-1">
-              <i class="fa-solid fa-trash"></i>
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
-
-    // Filter Logic
-    function filterLectures() {
-      const searchVal = document.getElementById('searchInput').value.toLowerCase().trim();
-      const gradeVal = document.getElementById('gradeFilter').value;
-      const typeVal = document.getElementById('typeFilter').value;
-
-      const filtered = lectures.filter(item => {
-        const matchesSearch = item.title.toLowerCase().includes(searchVal) || item.chapter.toLowerCase().includes(searchVal);
-        const matchesGrade = gradeVal === 'ALL' || item.grade === gradeVal;
-        const matchesType = typeVal === 'ALL' || item.type === typeVal;
-
-        return matchesSearch && matchesGrade && matchesType;
-      });
-
-      renderLectures(filtered);
-    }
-
-    // Modal Control
-    function openModal(id) {
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-    }
-
-    function toggleTypeFields() {
-      const type = document.getElementById('typeInput').value;
-      const label = document.getElementById('urlLabel');
-      const input = document.getElementById('urlInput');
-
-      if (type === 'VIDEO') {
-        label.innerText = 'رابط فيديو YouTube';
-        input.placeholder = 'https://www.youtube.com/watch?v=...';
-      } else {
-        label.innerText = 'رابط ملف الـ PDF';
-        input.placeholder = 'https://example.com/file.pdf';
-      }
-    }
-
-    // Save New Lecture
-    function saveLecture(e) {
-      e.preventDefault();
-
-      const newLecture = {
-        id: Date.now().toString(),
-        title: document.getElementById('titleInput').value,
-        grade: document.getElementById('gradeInput').value,
-        chapter: document.getElementById('chapterInput').value,
-        type: document.getElementById('typeInput').value,
-        url: document.getElementById('urlInput').value,
-        desc: document.getElementById('descInput').value
-      };
-
-      lectures.unshift(newLecture);
-      saveToLocalStorage();
-      filterLectures();
-
-      document.getElementById('lectureForm').reset();
-      closeModal('addModal');
-    }
-
-    // Delete Lecture
-    function deleteLecture(id) {
-      if (confirm('هل أنت تأكد من رغبتك في حذف هذه المحاضرة؟')) {
-        lectures = lectures.filter(l => 
+        <h3 id="videoModalTitle" class="text-sm sm
