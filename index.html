@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
+<html lang="ar" dir="rtl"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الأستاذ أحمد البايولوجي - منصة تعليمية وتطبيقات إبداعية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #0b132b;
@@ -377,28 +376,28 @@
             
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
                 <span style="font-weight: 700; font-size: 0.95rem;">🎥 المحاضرات المرئية</span>
-                <button class="btn-add admin-btn" onclick="openModal('lecture')">+ إضافة محاضرة</button>
+                <button class="btn-add admin-btn" onclick="openModal('lecture')" style="display: inline-block;">+ إضافة محاضرة</button>
             </div>
 
-            <div class="item-list" id="lectures-container"></div>
+            <div class="item-list" id="lectures-container"><div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div></div>
         </div>
 
         <!-- الملازم -->
         <div class="content-box">
             <div class="box-title">
                 <span>📚 الملازم والملخصات</span>
-                <button class="btn-add admin-btn" onclick="openModal('pdf')" style="background: #f59e0b;">+ إضافة ملزمة</button>
+                <button class="btn-add admin-btn" onclick="openModal('pdf')" style="background: rgb(245, 158, 11); display: inline-block;">+ إضافة ملزمة</button>
             </div>
-            <div class="item-list" id="pdfs-container"></div>
+            <div class="item-list" id="pdfs-container"><div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div></div>
         </div>
 
         <!-- الواجبات -->
         <div class="content-box">
             <div class="box-title">
                 <span>📝 الواجبات والامتحانات</span>
-                <button class="btn-add admin-btn" onclick="openModal('quiz')" style="background: #6366f1;">+ إضافة واجب</button>
+                <button class="btn-add admin-btn" onclick="openModal('quiz')" style="background: rgb(99, 102, 241); display: inline-block;">+ إضافة واجب</button>
             </div>
-            <div class="item-list" id="quizzes-container"></div>
+            <div class="item-list" id="quizzes-container"><div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div></div>
         </div>
 
     </div>
@@ -428,7 +427,7 @@
             <h3>تم التعديل! لنشر التغييرات للطلاب:</h3>
             <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:10px;">انسخ الكود أدناه بالكامل واستبدله في GitHub لتظهر المحاضرة لكل الطلاب:</p>
             <div class="form-group">
-                <textarea id="generatedCode" rows="8" readonly onclick="this.select()"></textarea>
+                <textarea id="generatedCode" rows="8" readonly="" onclick="this.select()"></textarea>
             </div>
             <div class="modal-actions">
                 <button class="btn-add" onclick="copyAndClose()">نسخ الكود وإغلاق</button>
@@ -445,9 +444,7 @@
         let currentType = 'lecture';
 
         // بيانات المنصة الأساسية المدمجة
-        let data = [
-            { id: 1, grade: 'الأول المتوسط', type: 'lecture', title: 'محاضرة اولى جزء اول', url: 'https://youtube.com' }
-        ];
+        let data = [];
 
         function scrollToGrades() {
             document.getElementById('grades-section').scrollIntoView({ behavior: 'smooth' });
@@ -578,5 +575,6 @@
 
         renderAll();
     </script>
-</body>
-</html>
+
+
+</body></html>
