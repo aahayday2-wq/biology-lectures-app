@@ -23,7 +23,7 @@ main{padding:42px 0 60px}.section{margin:0 0 44px}.section-head{display:flex;jus
 .contact{background:var(--navy);color:white;border-radius:22px;padding:28px;display:flex;justify-content:space-between;align-items:center;gap:20px}.contact p{color:#d2ddec;margin:4px 0 0;font-size:13px}.contact .btn{white-space:nowrap}
 footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line)}
 .search{width:100%;max-width:300px;padding:10px 13px;border:1px solid var(--line);border-radius:11px;font:inherit;font-size:12px;background:white}
-.badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:bold;margin-bottom:6px}.badge-video{background:#ffebee;color:#c62828}.badge-pdf{background:#e8f5e9;color:#2e7d32}
+.badge{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:bold;margin-bottom:6px}.badge-video{background:#e8f5e9;color:#1b5e20}.badge-yt{background:#ffebee;color:#c62828}.badge-pdf{background:#e0f7fa;color:#006064}
 .del-btn{position:absolute;left:12px;top:12px;background:#ffebee;color:#d32f2f;border:0;padding:5px 8px;border-radius:8px;cursor:pointer;font-size:11px}
 .modal{position:fixed;inset:0;background:rgba(16,35,63,0.8);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:0.3s}.modal.active{opacity:1;pointer-events:auto}
 .modal-card{background:white;width:100%;max-width:500px;border-radius:20px;padding:24px;box-shadow:0 10px 30px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto}
@@ -178,10 +178,27 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
     <form onsubmit="saveLecture(event)">
       <div class="form-group"><label>عنوان المحاضرة</label><input type="text" id="lecTitle" required placeholder="مثال: الخلية التركيب والوظيفة"></div>
       <div class="form-group"><label>الصف / المرحلة</label><input type="text" id="lecGrade" required placeholder="مثال: السادس العلمي"></div>
-      <div class="form-group"><label>نوع المحتوى</label>
-        <select id="lecType"><option value="VIDEO">فيديو (YouTube)</option><option value="PDF">ملف PDF / ملخص</option></select>
+      <div class="form-group">
+        <label>نوع المحتوى</label>
+        <select id="lecType" onchange="toggleInputType()">
+          <option value="LOCAL_VIDEO">فيديو مباشر (من الجهاز / الهاتف)</option>
+          <option value="YT_VIDEO">رابط يوتيوب (YouTube)</option>
+          <option value="PDF">ملف PDF / ملخص</option>
+        </select>
       </div>
-      <div class="form-group"><label>رابط المحاضرة أو الملف</label><input type="url" id="lecUrl" required placeholder="https://..."></div>
+      
+      <!-- Upload local video -->
+      <div class="form-group" id="fileGroup">
+        <label>اختر ملف الفيديو من جهازك</label>
+        <input type="file" id="lecFile" accept="video/*">
+      </div>
+
+      <!-- URL Link -->
+      <div class="form-group" id="urlGroup" style="display:none;">
+        <label id="urlLabel">الرابط</label>
+        <input type="url" id="lecUrl" placeholder="https://...">
+      </div>
+
       <div class="form-group"><label>وصف قصير</label><textarea id="lecDesc" rows="2" placeholder="توضيح عن المحاضرة..."></textarea></div>
       <div style="display:flex;gap:10px;margin-top:15px;">
         <button type="submit" class="btn primary" style="flex:1;">حفظ</button>
@@ -209,14 +226,12 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
 
 <!-- Video Viewer Modal -->
 <div class="modal" id="videoViewerModal">
-  <div class="modal-card" style="max-width:700px;padding:12px;">
+  <div class="modal-card" style="max-width:750px;padding:12px;">
     <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 12px;">
       <h4 id="videoModalTitle" style="margin:0;color:var(--navy);">عرض الفيديو</h4>
       <button onclick="closeVideoViewer()" style="border:0;background:none;font-size:18px;cursor:pointer;">✕</button>
     </div>
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;">
-      <iframe id="videoIframe" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe>
-    </div>
+    <div id="videoContainer" style="width:100%;border-radius:12px;overflow:hidden;background:#000;"></div>
   </div>
 </div>
 
@@ -238,20 +253,9 @@ footer{padding:22px 0;color:var(--muted);font-size:12px;text-align:center;border
 </div>
 
 <script>
-// كلمة المرور الخاصة بالأستاذ أحمد
 const ADMIN_PASS = "yaalibio2003";
 
-let lectures = [
-  {
-    id: '1',
-    title: 'المحاضرة الأولى: مقدمة الخلية والنظرية الخلوية',
-    grade: 'السادس العلمي',
-    type: 'VIDEO',
-    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-    desc: 'شرح مفصل لتركيب الخلية المفهوم الأساسي في مادة الأحياء.'
-  }
-];
-
+let lectures = [];
 let news = [
   {
     id: '1',
@@ -273,8 +277,12 @@ window.onload = function() {
 };
 
 function saveStorage() {
-  localStorage.setItem('ahmed_bio_lectures', JSON.stringify(lectures));
-  localStorage.setItem('ahmed_bio_news', JSON.stringify(news));
+  try {
+    localStorage.setItem('ahmed_bio_lectures', JSON.stringify(lectures));
+    localStorage.setItem('ahmed_bio_news', JSON.stringify(news));
+  } catch(e) {
+    alert("تنبيه: حَجْم الفيديو المباشر كَبِير جداً على التخزين المحلي للمتصفح. يُنصح باستخدام فيديوهات بحجم صغير أو رفعها عبر خيار يوتيوب.");
+  }
 }
 
 function checkAuth(modalId) {
@@ -289,6 +297,26 @@ function checkAuth(modalId) {
 function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
+function toggleInputType() {
+  const type = document.getElementById('lecType').value;
+  const fileGrp = document.getElementById('fileGroup');
+  const urlGrp = document.getElementById('urlGroup');
+  const urlLabel = document.getElementById('urlLabel');
+
+  if(type === 'LOCAL_VIDEO') {
+    fileGrp.style.display = 'block';
+    urlGrp.style.display = 'none';
+  } else if(type === 'YT_VIDEO') {
+    fileGrp.style.display = 'none';
+    urlGrp.style.display = 'block';
+    urlLabel.textContent = 'رابط فيديو يوتيوب';
+  } else {
+    fileGrp.style.display = 'none';
+    urlGrp.style.display = 'block';
+    urlLabel.textContent = 'رابط ملف الـ PDF';
+  }
+}
+
 // Lectures
 function renderLectures(data) {
   const list = document.getElementById('lecturesList');
@@ -300,50 +328,16 @@ function renderLectures(data) {
   data.forEach(item => {
     const card = document.createElement('article');
     card.className = 'card';
-    const isVideo = item.type === 'VIDEO';
-    card.innerHTML = `
-      <button class="del-btn" onclick="deleteLecture('${item.id}')"><i class="fa-solid fa-trash"></i></button>
-      <span class="badge ${isVideo?'badge-video':'badge-pdf'}">${isVideo?'فيديو يوتيوب':'ملف PDF'}</span>
-      <h3 style="margin-top:5px;">${item.title}</h3>
-      <p style="color:var(--blue);font-weight:bold;font-size:11px;margin-bottom:6px;">${item.grade}</p>
-      <p>${item.desc || ''}</p>
-      <div style="margin-top:14px;">
-        ${isVideo ? 
-          `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playVideo('${getEmbedUrl(item.url)}', '${item.title}')"><i class="fa-solid fa-play"></i> مشاهدة</button>`:
-          `<a class="btn primary" style="padding:6px 12px;font-size:12px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`
-        }
-      </div>
-    `;
-    list.appendChild(card);
-  });
-}
+    
+    let badgeHtml = '';
+    let btnHtml = '';
 
-function saveLecture(e) {
-  e.preventDefault();
-  const newLec = {
-    id: Date.now().toString(),
-    title: document.getElementById('lecTitle').value,
-    grade: document.getElementById('lecGrade').value,
-    type: document.getElementById('lecType').value,
-    url: document.getElementById('lecUrl').value,
-    desc: document.getElementById('lecDesc').value
-  };
-  lectures.unshift(newLec);
-  saveStorage();
-  renderLectures(lectures);
-  closeModal('addLectureModal');
-  e.target.reset();
-}
-
-function deleteLecture(id) {
-  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
-  if(p === ADMIN_PASS) {
-    lectures = lectures.filter(l => l.id !== id);
-    saveStorage();
-    renderLectures(lectures);
-  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
-}
-
-function filterLectures() {
-  const q = document.getElementById('lectureSearch').value.toLowerCase().trim();
-  const filtered = lectures.filter(l => l.title.toLowerCase().inc
+    if(item.type === 'LOCAL_VIDEO') {
+      badgeHtml = `<span class="badge badge-video"><i class="fa-solid fa-video"></i> فيديو مباشر</span>`;
+      btnHtml = `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playLocalVideo('${item.src}', '${item.title}')"><i class="fa-solid fa-play"></i> تشغيل الفيديو</button>`;
+    } else if(item.type === 'YT_VIDEO') {
+      badgeHtml = `<span class="badge badge-yt"><i class="fa-brands fa-youtube"></i> فيديو يوتيوب</span>`;
+      btnHtml = `<button class="btn emerald-btn" style="padding:6px 12px;font-size:12px;" onclick="playYTVideo('${getEmbedUrl(item.url)}', '${item.title}')"><i class="fa-solid fa-play"></i> مشاهدة</button>`;
+    } else {
+      badgeHtml = `<span class="badge badge-pdf"><i class="fa-solid fa-file-pdf"></i> ملف PDF</span>`;
+      btnHtml = `<a class="btn primary" style="padding:6px 12px;font-size:12px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file
