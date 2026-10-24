@@ -1,562 +1,381 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#10233f">
-<title>الأستاذ أحمد البايلوجي | المنصة التعليمية والخدمية</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<style>
-:root{--navy:#10233f;--blue:#1e5eff;--gold:#e7b85c;--ink:#17243a;--muted:#66758b;--paper:#f4f7fb;--line:#e5eaf1;--emerald:#10b981;--purple:#7c3aed}
-*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.7}
-a{color:inherit;text-decoration:none}.wrap{width:min(1160px,92%);margin:auto}
-header{background:var(--navy);color:white;position:sticky;top:0;z-index:50;box-shadow:0 8px 24px #0b1b3022}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 0}
-.brand{display:flex;align-items:center;gap:12px;font-weight:800}.mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--gold),#fff0c5);color:var(--navy);display:grid;place-items:center;font-size:22px;font-weight:900}.brand small{display:block;color:#c3d0e2;font-size:11px;font-weight:400}
-.links{display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:#e4ebf5}.links a:hover{color:var(--gold)}
-.hero{background:radial-gradient(circle at 15% 20%,#284c7b 0,transparent 32%),linear-gradient(125deg,#10233f,#18395e);color:white;padding:50px 0;overflow:hidden}.hero-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:30px;align-items:center}.eyebrow{color:var(--gold);font-size:13px;font-weight:700;letter-spacing:.3px}.hero h1{font-size:clamp(26px,4vw,42px);line-height:1.25;margin:10px 0}.hero p{color:#d4dfed;max-width:650px;margin:0 0 20px}.btn{border:0;border-radius:12px;padding:10px 18px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:8px;font-size:13px}.primary{background:var(--gold);color:#17243a}.ghost{border:1px solid #ffffff66;color:white;background:#ffffff0c}.emerald-btn{background:var(--emerald);color:white}
-.profile-card{background:#ffffff12;border:1px solid #ffffff28;border-radius:24px;padding:20px;text-align:center;backdrop-filter:blur(8px)}.avatar{width:76px;height:76px;border-radius:20px;margin:0 auto 10px;background:linear-gradient(145deg,#f3d28e,#fff);color:var(--navy);display:grid;place-items:center;font-size:34px;font-weight:900}.profile-card strong{font-size:16px}.profile-card span{display:block;color:#d2ddec;font-size:11px}
-main{padding:30px 0 60px}.section{margin:0 0 35px}.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:15px;margin-bottom:15px}.section-head h2{font-size:22px;margin:0;color:var(--navy)}.section-head p{margin:3px 0 0;color:var(--muted);font-size:12px}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الأستاذ أحمد البايولوجي - منصة التعليم</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #10b981;
+            --accent-hover: #059669;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #1e293b;
+            --text-muted: #64748b;
+            --danger: #ef4444;
+            --border: #e2e8f0;
+        }
 
-/* Grades Tabs */
-.grades-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.grade-tab{flex:1;min-width:120px;padding:12px 10px;text-align:center;border-radius:14px;font-size:13px;font-weight:bold;cursor:pointer;background:white;color:var(--muted);border:1px solid var(--line);box-shadow:0 3px 10px rgba(0,0,0,0.02);transition:0.2s}
-.grade-tab.active{background:var(--navy);color:var(--gold);border-color:var(--navy)}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
 
-/* Grade Content Panel */
-.grade-panel{display:none;background:white;border:2px solid var(--gold);border-radius:20px;padding:22px;box-shadow:0 6px 20px rgba(0,0,0,0.06);margin-top:15px}
-.grade-panel.active{display:block}
-.grade-title{font-size:20px;color:var(--navy);margin-top:0;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--paper);padding-bottom:10px}
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
 
-/* Category Sections */
-.cat-section{margin-bottom:24px}
-.cat-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;background:var(--paper);padding:8px 12px;border-radius:10px}
-.cat-head h3{margin:0;font-size:15px;color:var(--navy);display:flex;align-items:center;gap:8px}
+        header {
+            background: linear-gradient(135deg, var(--primary), #1e293b);
+            color: white;
+            padding: 2rem 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
 
-.grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));gap:12px}
-.card{background:white;border:1px solid var(--line);border-radius:14px;padding:15px;position:relative;box-shadow:0 3px 10px rgba(0,0,0,0.02)}
-.card h4{margin:0 0 6px;font-size:14px;color:var(--navy)}
-.card p{margin:0 0 10px;color:var(--muted);font-size:12px}
+        header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
 
-.badge{display:inline-block;padding:3px 7px;border-radius:6px;font-size:10px;font-weight:bold;margin-bottom:5px}
-.badge-video{background:#e8f5e9;color:#1b5e20}
-.badge-pdf{background:#e0f7fa;color:#006064}
-.badge-hw{background:#f3e8ff;color:#6b21a8}
+        header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
 
-.admin-only { display: none !important; }
-.logged-in .admin-only { display: inline-flex !important; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
 
-.del-btn{position:absolute;left:10px;top:10px;background:#ffebee;color:#d32f2f;border:0;padding:4px 8px;border-radius:6px;cursor:pointer;font-size:11px}
-.empty-msg{color:var(--muted);font-size:12px;font-style:italic;padding:8px 0}
+        .hero-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+        }
 
-.news{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.news-item{display:flex;gap:12px;align-items:flex-start;background:white;border:1px solid var(--line);border-radius:14px;padding:15px;position:relative}
-.news-date{min-width:60px;text-align:center;border-radius:9px;background:#edf2ff;padding:6px;color:#2452b5;font-size:11px;font-weight:700}
+        .hero-card h2 {
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
 
-.service-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.service-card{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:flex-start}
-.service-card .ico{width:38px;height:38px;border-radius:10px;background:#edf2ff;display:grid;place-items:center;font-size:16px;flex:0 0 38px}
+        .grades-nav {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin: 1.5rem 0;
+        }
 
-.contact{background:var(--navy);color:white;border-radius:18px;padding:22px;display:flex;justify-content:space-between;align-items:center;gap:15px}
-footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border-top:1px solid var(--line)}
+        .grade-btn {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 12px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+        }
 
-.modal{position:fixed;inset:0;background:rgba(16,35,63,0.8);backdrop-filter:blur(6px);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:0.3s}
-.modal.active{opacity:1;pointer-events:auto}
-.modal-card{background:white;width:100%;max-width:460px;border-radius:20px;padding:22px;box-shadow:0 10px 30px rgba(0,0,0,0.2);max-height:90vh;overflow-y:auto}
-.form-group{margin-bottom:12px}.form-group label{display:block;font-size:12px;font-weight:bold;margin-bottom:4px;color:var(--navy)}.form-group input,.form-group select,.form-group textarea{width:100%;padding:9px;border:1px solid var(--line);border-radius:9px;font-family:inherit;font-size:13px}
+        .grade-btn.active, .grade-btn:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
 
-@media(max-width:760px){.links{display:none}.hero{padding:35px 0}.hero-grid{grid-template-columns:1fr}.profile-card{max-width:260px}.news,.service-grid{grid-template-columns:1fr}.contact{display:block}.contact .btn{margin-top:10px}}
-</style>
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.5rem 0 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .add-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+        }
+
+        .add-btn:hover {
+            background: var(--accent-hover);
+        }
+
+        .lectures-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .lecture-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        .lecture-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .badge {
+            background: #e0e7ff;
+            color: #3730a3;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .watch-btn {
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .delete-btn {
+            background: #fee2e2;
+            color: var(--danger);
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* Modal Form */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body id="bodyTag">
+<body>
 
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="#">
-      <div class="mark">أ</div>
-      <div>الأستاذ أحمد البايلوجي<small>منصة تعليمية وخدمات إبداعية</small></div>
-    </a>
-    <nav class="links">
-      <a href="#about">من أنا</a>
-      <a href="#gradesSection">المراحل الدراسية</a>
-      <a href="#news">الأخبار</a>
-      <a href="#services">الخدمات</a>
-      <a href="#contact">تواصل</a>
-    </nav>
-    <div style="display:flex;gap:6px;">
-      <button class="btn ghost admin-only" onclick="openModal('addNewsModal')"><i class="fa-solid fa-bullhorn"></i> خبر</button>
-      <button class="btn ghost" onclick="adminLogin()" title="تسجيل دخول المدير" style="padding:10px 10px;"><i class="fa-solid fa-lock" id="lockIcon"></i></button>
-    </div>
-  </div>
-</header>
+    <header>
+        <h1>الأستاذ أحمد البايولوجي</h1>
+        <p>منصة تعليمية ورقمية لإدارة المحاضرات والدروس</p>
+    </header>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="eyebrow">مرحباً بكم في منصتي الرسمية</div>
-      <h1>المعرفة تصنع الفرق،<br>والإبداع يصنع الهوية.</h1>
-      <p>منصة الأستاذ أحمد البايلوجي لمتابعة المحاضرات، الملازم، والواجبات المدرسية بكل سهولة.</p>
-      <div class="actions">
-        <a class="btn primary" href="#gradesSection">تصفح المراحل الدراسية</a>
-      </div>
-    </div>
-    <div class="profile-card">
-      <div class="avatar">أ</div>
-      <strong>الأستاذ أحمد البايلوجي</strong>
-      <span>مدرس مادة الأحياء</span>
-    </div>
-  </div>
-</section>
-
-<main class="wrap">
-
-  <section class="section" id="about">
-    <div class="section-head">
-      <div>
-        <h2>أهلاً بك في المنصة</h2>
-        <p>اختر صفك الدراسي لتجد المحاضرات والملازم الخاصة بك.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="gradesSection">
-    <div class="section-head">
-      <div>
-        <h2>اختر الصف الدراسي</h2>
-        <p>اضغط على أي صف لتجد المحاضرات والملازم والواجبات الخاصة به.</p>
-      </div>
-    </div>
-
-    <div class="grades-nav" id="gradesNav">
-      <div class="grade-tab active" onclick="switchGrade('grade1')">الأول المتوسط</div>
-      <div class="grade-tab" onclick="switchGrade('grade2')">الثاني المتوسط</div>
-      <div class="grade-tab" onclick="switchGrade('grade3')">الثالث المتوسط</div>
-      <div class="grade-tab" onclick="switchGrade('grade4')">الرابع العلمي</div>
-      <div class="grade-tab" onclick="switchGrade('grade5')">الخامس العلمي</div>
-      <div class="grade-tab" onclick="switchGrade('grade6')">السادس العلمي</div>
-    </div>
-
-    <div id="gradePanelsContainer"></div>
-  </section>
-
-  <section class="section" id="news">
-    <div class="section-head">
-      <div>
-        <h2>الأخبار والإعلانات</h2>
-        <p>آخر المستجدات والتنويهات التعليمية.</p>
-      </div>
-    </div>
-    <div class="news" id="newsList"></div>
-    <div id="noNews" style="display:none;text-align:center;padding:15px;color:var(--muted);">لا توجد أخبار حالياً.</div>
-  </section>
-
-  <section class="section" id="services">
-    <div class="section-head">
-      <div>
-        <h2>الخدمات المتوفرة</h2>
-        <p>خدمات تصميم وتنسيق تعليمية متكاملة.</p>
-      </div>
-    </div>
-    <div class="service-grid">
-      <article class="service-card"><div class="ico">🎨</div><div><h3 style="margin:0 0 3px;font-size:14px;color:var(--navy);">التصميم والغرافيك</h3><p style="margin:0;font-size:11px;color:var(--muted);">تصميم منشورات وإعلانات ومواد تعليمية.</p></div></article>
-      <article class="service-card"><div class="ico">📝</div><div><h3 style="margin:0 0 3px;font-size:14px;color:var(--navy);">إعداد الأسئلة</h3><p style="margin:0;font-size:11px;color:var(--muted);">تنسيق الأسئلة الامتحانية والشهرية.</p></div></article>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="contact">
-      <div>
-        <h2 style="margin:0;font-size:18px;">للطلب والاستفسار والمتابعة</h2>
-        <p style="margin:3px 0 0;font-size:11px;color:#d2ddec;">تواصل مباشرة مع الأستاذ أحمد البايلوجي.</p>
-      </div>
-      <a class="btn primary" href="https://t.me/" target="_blank"><i class="fa-brands fa-telegram"></i> قناة التليكرام</a>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">© <span id="year"></span> الأستاذ أحمد البايلوجي — جميع الحقوق محفوظة</div>
-</footer>
-
-<div class="modal" id="addItemModal">
-  <div class="modal-card">
-    <h3 id="modalTitle" style="margin-top:0;color:var(--navy);">إضافة عنصر جديد</h3>
-    <form onsubmit="saveItem(event)">
-      <div class="form-group"><label>العنوان</label><input type="text" id="itemTitle" required placeholder="مثال: محاضرة الفصل الأول"></div>
-      <div class="form-group"><label>الرابط (يوتيوب أو PDF)</label><input type="url" id="itemUrl" required placeholder="https://..."></div>
-      <div class="form-group"><label>وصف قصير (اختياري)</label><textarea id="itemDesc" rows="2" placeholder="ملاحظات..."></textarea></div>
-      <div style="display:flex;gap:8px;margin-top:12px;">
-        <button type="submit" class="btn primary" style="flex:1;">حفظ ونشر</button>
-        <button type="button" class="btn ghost" style="color:var(--navy);border-color:var(--line);" onclick="closeModal('addItemModal')">إلغاء</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="modal" id="addNewsModal">
-  <div class="modal-card">
-    <h3 style="margin-top:0;color:var(--navy);">إضافة خبر أو تنبيه</h3>
-    <form onsubmit="saveNews(event)">
-      <div class="form-group"><label>عنوان الخبر</label><input type="text" id="newsTitle" required placeholder="عنوان الخبر"></div>
-      <div class="form-group"><label>تاريخ الخبر</label><input type="text" id="newsDate" required placeholder="التاريخ أو الوسم"></div>
-      <div class="form-group"><label>التفاصيل</label><textarea id="newsContent" rows="3" required placeholder="نص الخبر..."></textarea></div>
-      <div style="display:flex;gap:8px;margin-top:12px;">
-        <button type="submit" class="btn primary" style="flex:1;">نشر</button>
-        <button type="button" class="btn ghost" style="color:var(--navy);border-color:var(--line);" onclick="closeModal('addNewsModal')">إلغاء</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="modal" id="videoViewerModal">
-  <div class="modal-card" style="max-width:700px;padding:8px;">
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px;">
-      <h4 id="videoModalTitle" style="margin:0;color:var(--navy);font-size:14px;">مشاهدة الفيديو</h4>
-      <button onclick="closeVideoViewer()" style="border:0;background:none;font-size:16px;cursor:pointer;">✕</button>
-    </div>
-    <div id="videoContainer" style="width:100%;border-radius:8px;overflow:hidden;background:#000;"></div>
-  </div>
-</div>
-
-<script>
-const ADMIN_PASS = "yaalibio2003";
-let isAdmin = localStorage.getItem('ahmed_bio_is_admin') === 'true';
-
-// إعدادات GitHub لربط المنصة سحابياً
-const GITHUB_CONFIG = {
-  token: "ghp_kGhXpQIcWMuC6InWOPIDc3LXXI4OnVCWzW",
-  username: "aahayday2-wq",
-  repo: "biology-lectures-app"
-};
-
-const gradesData = [
-  { id: 'grade1', name: 'الأول المتوسط' },
-  { id: 'grade2', name: 'الثاني المتوسط' },
-  { id: 'grade3', name: 'الثالث المتوسط' },
-  { id: 'grade4', name: 'الرابع العلمي' },
-  { id: 'grade5', name: 'الخامس العلمي' },
-  { id: 'grade6', name: 'السادس العلمي' }
-];
-
-let appData = {
-  grades: {
-    grade1: { lectures: [], pdfs: [], homeworks: [] },
-    grade2: { lectures: [], pdfs: [], homeworks: [] },
-    grade3: { lectures: [], pdfs: [], homeworks: [] },
-    grade4: { lectures: [], pdfs: [], homeworks: [] },
-    grade5: { lectures: [], pdfs: [], homeworks: [] },
-    grade6: { lectures: [], pdfs: [], homeworks: [] }
-  },
-  news: []
-};
-
-let activeGradeId = 'grade1';
-let currentAddGrade = '';
-let currentAddCategory = '';
-
-document.getElementById('year').textContent = new Date().getFullYear();
-
-window.onload = function() {
-  loadDataFromCloud();
-};
-
-// دالة لجلب البيانات مباشرة من مستودع GitHub لكي تظهر لكل الطلاب
-async function loadDataFromCloud() {
-  try {
-    const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/main/data.json?t=${Date.now()}`);
-    if(res.ok) {
-      appData = await res.json();
-    } else {
-      const saved = localStorage.getItem('ahmed_bio_global_data');
-      if(saved) appData = JSON.parse(saved);
-    }
-  } catch(e) {
-    const saved = localStorage.getItem('ahmed_bio_global_data');
-    if(saved) appData = JSON.parse(saved);
-  }
-  updateAdminUI();
-  buildGradesUI();
-  renderAll();
-}
-
-// دالة لحفظ وتحديث البيانات تلقائياً على GitHub
-async function saveAndSyncCloud() {
-  localStorage.setItem('ahmed_bio_global_data', JSON.stringify(appData));
-  
-  try {
-    const contentEncoded = btoa(unescape(encodeURIComponent(JSON.stringify(appData, null, 2))));
-    const url = `https://api.github.com/repos/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/contents/data.json`;
-    
-    // جلب الـ sha الحالي للملف إن وجد
-    let sha = '';
-    const getRes = await fetch(url, {
-      headers: { 'Authorization': `token ${GITHUB_CONFIG.token}` }
-    });
-    if(getRes.ok) {
-      const fileInfo = await getRes.json();
-      sha = fileInfo.sha;
-    }
-
-    // رفع التحديث الجديد
-    const bodyData = {
-      message: "Update lectures and data via Admin Panel",
-      content: contentEncoded,
-      sha: sha ? sha : undefined
-    };
-
-    const putRes = await fetch(url, {
-      method: 'PUT',
-      headers: {
-        'Authorization': `token ${GITHUB_CONFIG.token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(bodyData)
-    });
-
-    if(putRes.ok) {
-      alert("تم حفظ ونشر التحديث بنجاح، وسيظهر الآن لجميع الطلاب فوراً!");
-    } else {
-      alert("تم الحفظ محلياً، يرجى التأكد من اتصال الإنترنت.");
-    }
-  } catch(err) {
-    console.error(err);
-  }
-}
-
-function adminLogin() {
-  if(isAdmin) {
-    if(confirm('هل تريد تسجيل الخروج من وضع الإدارة؟')) {
-      isAdmin = false;
-      localStorage.removeItem('ahmed_bio_is_admin');
-      updateAdminUI();
-      renderAll();
-    }
-  } else {
-    let p = prompt("أدخل كلمة المرور الخاصة بالإدارة:");
-    if(p === ADMIN_PASS) {
-      isAdmin = true;
-      localStorage.setItem('ahmed_bio_is_admin', 'true');
-      updateAdminUI();
-      renderAll();
-      alert("تم تسجيل دخول المدير بنجاح!");
-    } else if(p !== null) {
-      alert("كلمة المرور غير صحيحة!");
-    }
-  }
-}
-
-function updateAdminUI() {
-  const body = document.getElementById('bodyTag');
-  const lock = document.getElementById('lockIcon');
-  if(isAdmin) {
-    body.classList.add('logged-in');
-    lock.className = "fa-solid fa-unlock";
-    lock.style.color = "var(--gold)";
-  } else {
-    body.classList.remove('logged-in');
-    lock.className = "fa-solid fa-lock";
-    lock.style.color = "white";
-  }
-}
-
-function openModal(id) { document.getElementById(id).classList.add('active'); }
-function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-function openAddModal(grade, cat) {
-  if(!isAdmin) {
-    let p = prompt("هذا الزر خاص بالأستاذ أحمد. أدخل كلمة المرور للإضافة:");
-    if(p === ADMIN_PASS) {
-      isAdmin = true;
-      localStorage.setItem('ahmed_bio_is_admin', 'true');
-      updateAdminUI();
-      renderAll();
-    } else {
-      alert("كلمة المرور غير صحيحة!");
-      return;
-    }
-  }
-  currentAddGrade = grade;
-  currentAddCategory = cat;
-  const catNames = { lectures: 'محاضرة', pdfs: 'ملزمة / ملخص', homeworks: 'واجب / امتحان' };
-  document.getElementById('modalTitle').textContent = `إضافة ${catNames[cat]} جديدة`;
-  openModal('addItemModal');
-}
-
-function buildGradesUI() {
-  const container = document.getElementById('gradePanelsContainer');
-  container.innerHTML = '';
-
-  gradesData.forEach((g) => {
-    const panel = document.createElement('div');
-    panel.className = `grade-panel ${g.id === activeGradeId ? 'active' : ''}`;
-    panel.id = g.id;
-    panel.innerHTML = `
-      <div class="grade-title">
-        <span><i class="fa-solid fa-graduation-cap" style="color:var(--gold);"></i> قسم ${g.name}</span>
-      </div>
-      
-      <div class="cat-section">
-        <div class="cat-head">
-          <h3><i class="fa-solid fa-video" style="color:var(--emerald);"></i> المحاضرات المرئية</h3>
-          <button class="btn emerald-btn admin-only" style="padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
+    <div class="container">
+        <div class="hero-card">
+            <h2>مرحباً بكم في المنصة</h2>
+            <p>اختر الصف الدراسي لمتابعة المحاضرات والوسائل التعليمية.</p>
         </div>
-        <div class="grid" id="${g.id}_lectures"></div>
-      </div>
 
-      <div class="cat-section">
-        <div class="cat-head">
-          <h3><i class="fa-solid fa-book-open" style="color:var(--blue);"></i> الملازم والملخصات</h3>
-          <button class="btn primary admin-only" style="padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'pdfs')"><i class="fa-solid fa-plus"></i> إضافة ملزمة</button>
+        <div class="grades-nav">
+            <button class="grade-btn active" onclick="selectGrade('الأول المتوسط')">الأول المتوسط</button>
+            <button class="grade-btn" onclick="selectGrade('الثاني المتوسط')">الثاني المتوسط</button>
+            <button class="grade-btn" onclick="selectGrade('الثالث المتوسط')">الثالث المتوسط</button>
+            <button class="grade-btn" onclick="selectGrade('الرابع العلمي')">الرابع العلمي</button>
+            <button class="grade-btn" onclick="selectGrade('الخامس العلمي')">الخامس العلمي</button>
+            <button class="grade-btn" onclick="selectGrade('السادس العلمي')">السادس العلمي</button>
         </div>
-        <div class="grid" id="${g.id}_pdfs"></div>
-      </div>
 
-      <div class="cat-section">
-        <div class="cat-head">
-          <h3><i class="fa-solid fa-pen-clip" style="color:var(--purple);"></i> الواجبات والامتحانات</h3>
-          <button class="btn ghost admin-only" style="color:var(--navy);border-color:var(--line);padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة واجب</button>
+        <div class="section-title">
+            <span id="current-grade-title">قسم الأول المتوسط</span>
+            <button class="add-btn" onclick="openModal()">+ إضافة محاضرة</button>
         </div>
-        <div class="grid" id="${g.id}_homeworks"></div>
-      </div>
-    `;
-    container.appendChild(panel);
-  });
-}
 
-function switchGrade(gradeId) {
-  activeGradeId = gradeId;
-  document.querySelectorAll('.grade-tab').forEach((t, idx) => {
-    if(gradesData[idx].id === gradeId) t.classList.add('active');
-    else t.classList.remove('active');
-  });
-  document.querySelectorAll('.grade-panel').forEach(p => {
-    if(p.id === gradeId) p.classList.add('active');
-    else p.classList.remove('active');
-  });
-}
+        <div class="lectures-list" id="lectures-container">
+            <!-- المحاضرات تظهر هنا -->
+        </div>
+    </div>
 
-function renderAll() {
-  gradesData.forEach(g => {
-    const gradeObj = appData.grades[g.id];
-    renderCategoryList(`${g.id}_lectures`, gradeObj.lectures, 'LECTURE', g.id);
-    renderCategoryList(`${g.id}_pdfs`, gradeObj.pdfs, 'PDF', g.id);
-    renderCategoryList(`${g.id}_homeworks`, gradeObj.homeworks, 'HW', g.id);
-  });
-  renderNews(appData.news);
-}
+    <!-- نافذة إضافة محاضرة -->
+    <div class="modal" id="addModal">
+        <div class="modal-content">
+            <h3>إضافة محاضرة جديدة</h3>
+            <div class="form-group">
+                <label>عنوان المحاضرة</label>
+                <input type="text" id="lecTitle" placeholder="مثال: محاضرة أولى جزء أول">
+            </div>
+            <div class="form-group">
+                <label>رابط الفيديو (يوتيوب)</label>
+                <input type="url" id="lecUrl" placeholder="https://youtube.com/...">
+            </div>
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
+                <button class="add-btn" onclick="saveLecture()">حفظ المحاضرة</button>
+            </div>
+        </div>
+    </div>
 
-function renderCategoryList(elementId, items, type, gradeId) {
-  const container = document.getElementById(elementId);
-  if(!container) return;
-  container.innerHTML = '';
-  if(!items || items.length === 0) {
-    container.innerHTML = `<div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div>`;
-    return;
-  }
+    <script>
+        let currentGrade = 'الأول المتوسط';
+        let lectures = JSON.parse(localStorage.getItem('bio_lectures')) || [];
 
-  items.forEach(item => {
-    const card = document.createElement('article');
-    card.className = 'card';
-    
-    let badge = '';
-    let actionBtn = '';
+        function selectGrade(grade) {
+            currentGrade = grade;
+            document.getElementById('current-grade-title').innerText = 'قسم ' + grade;
+            
+            let buttons = document.querySelectorAll('.grade-btn');
+            buttons.forEach(btn => {
+                if(btn.innerText === grade) btn.classList.add('active');
+                else btn.classList.remove('active');
+            });
 
-    if(type === 'LECTURE') {
-      badge = `<span class="badge badge-video">فيديو يوتيوب</span>`;
-      actionBtn = `<button class="btn emerald-btn" style="padding:4px 9px;font-size:11px;" onclick="playYTVideo('${getEmbedUrl(item.url)}', '${item.title}')"><i class="fa-solid fa-play"></i> مشاهدة</button>`;
-    } else if(type === 'PDF') {
-      badge = `<span class="badge badge-pdf">ملف PDF / ملزمة</span>`;
-      actionBtn = `<a class="btn primary" style="padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`;
-    } else {
-      badge = `<span class="badge badge-hw">واجب / امتحان</span>`;
-      actionBtn = `<a class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-link"></i> عرض الرابط</a>`;
-    }
+            renderLectures();
+        }
 
-    let delButtonHtml = isAdmin ? `<button class="del-btn" onclick="deleteItem('${gradeId}', '${getCategoryKey(type)}', '${item.id}')"><i class="fa-solid fa-trash"></i></button>` : '';
+        function renderLectures() {
+            let container = document.getElementById('lectures-container');
+            container.innerHTML = '';
 
-    card.innerHTML = `
-      ${delButtonHtml}
-      ${badge}
-      <h4 style="margin-top:4px;">${item.title}</h4>
-      <p>${item.desc || ''}</p>
-      <div style="margin-top:8px;">${actionBtn}</div>
-    `;
-    container.appendChild(card);
-  });
-}
+            let filtered = lectures.filter(l => l.grade === currentGrade);
 
-function getCategoryKey(type) {
-  if(type === 'LECTURE') return 'lectures';
-  if(type === 'PDF') return 'pdfs';
-  return 'homeworks';
-}
+            if(filtered.length === 0) {
+                container.innerHTML = '<p style="text-align:center; color:#64748b; padding:2rem;">لا توجد محاضرات مضافة لهذا الصف حالياً.</p>';
+                return;
+            }
 
-function saveItem(e) {
-  e.preventDefault();
-  const newItem = {
-    id: Date.now().toString(),
-    title: document.getElementById('itemTitle').value,
-    url: document.getElementById('itemUrl').value,
-    desc: document.getElementById('itemDesc').value
-  };
+            filtered.forEach((lec, index) => {
+                let card = document.createElement('div');
+                card.className = 'lecture-card';
+                card.innerHTML = `
+                    <div class="lecture-info">
+                        <span class="badge">فيديو يوتيوب</span>
+                        <h4>${lec.title}</h4>
+                    </div>
+                    <div class="actions">
+                        <a href="${lec.url}" target="_blank" class="watch-btn">▶ مشاهدة</a>
+                        <button class="delete-btn" onclick="deleteLecture(${lec.id})">🗑️</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
-  appData.grades[currentAddGrade][currentAddCategory].unshift(newItem);
-  
-  saveAndSyncCloud();
-  renderAll();
-  closeModal('addItemModal');
-  e.target.reset();
-}
+        function openModal() {
+            document.getElementById('addModal').style.display = 'flex';
+        }
 
-function deleteItem(gradeId, catKey, itemId) {
-  if(confirm('هل أنت متأكد من حذف هذا العنصر؟')) {
-    appData.grades[gradeId][catKey] = appData.grades[gradeId][catKey].filter(i => i.id !== itemId);
-    saveAndSyncCloud();
-    renderAll();
-  }
-}
+        function closeModal() {
+            document.getElementById('addModal').style.display = 'none';
+            document.getElementById('lecTitle').value = '';
+            document.getElementById('lecUrl').value = '';
+        }
 
-function renderNews(data) {
-  const list = document.getElementById('newsList');
-  const empty = document.getElementById('noNews');
-  if(!list) return;
-  list.innerHTML = '';
-  if(!data || data.length === 0) { empty.style.display = 'block'; return; }
-  empty.style.display = 'none';
+        function saveLecture() {
+            let title = document.getElementById('lecTitle').value;
+            let url = document.getElementById('lecUrl').value;
 
-  data.forEach(item => {
-    const card = document.createElement('article');
-    card.className = 'news-item';
-    card.innerHTML = `
-      <div class="news-date">${item.date}</div>
-      <div>
-        <h4 style="margin:0 0 3px;font-size:14px;color:var(--navy);">${item.title}</h4>
-        <p style="margin:0;font-size:11px;color:var(--muted);">${item.content}</p>
-      </div>
-    `;
-    list.appendChild(card);
-  });
-}
+            if(!title || !url) {
+                alert('يرجى إدخال العنوان والرابط');
+                return;
+            }
 
-function getEmbedUrl(url) {
-  let id = '';
-  if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split('?')[0];
-  else if(url.includes('watch?v=')) id = url.split('watch?v=')[1].split('&')[0];
-  return `https://www.youtube.com/embed/${id}?autoplay=1`;
-}
+            let newLec = {
+                id: Date.now(),
+                grade: currentGrade,
+                title: title,
+                url: url
+            };
 
-function playYTVideo(url, title) {
-  const container = document.getElementById('videoContainer');
-  container.innerHTML = `<div style="position:relative;padding-bottom:56.25%;height:0;"><iframe src="${url}" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe></div>`;
-  document.getElementById('videoModalTitle').textContent = title;
-  openModal('videoViewerModal');
-}
+            lectures.push(newLec);
+            localStorage.setItem('bio_lectures', JSON.stringify(lectures));
+            closeModal();
+            renderLectures();
+        }
 
-function closeVideoViewer() {
-  document.getElementById('videoContainer').innerHTML = '';
-  closeModal('videoViewerModal');
-}
-</script>
+        function deleteLecture(id) {
+            if(confirm('هل أنت تأكد من حذف هذه المحاضرة؟')) {
+                lectures = lectures.filter(l => l.id !== id);
+                localStorage.setItem('bio_lectures', JSON.stringify(lectures));
+                renderLectures();
+            }
+        }
+
+        // تشغيل أولي
+        renderLectures();
+    </script>
 </body>
 </html>
