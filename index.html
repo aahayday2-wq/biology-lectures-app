@@ -43,6 +43,9 @@ main{padding:30px 0 60px}.section{margin:0 0 35px}.section-head{display:flex;jus
 .badge-pdf{background:#e0f7fa;color:#006064}
 .badge-hw{background:#f3e8ff;color:#6b21a8}
 
+.admin-only { display: none !important; }
+.logged-in .admin-only { display: inline-flex !important; }
+
 .del-btn{position:absolute;left:10px;top:10px;background:#ffebee;color:#d32f2f;border:0;padding:4px 8px;border-radius:6px;cursor:pointer;font-size:11px}
 .empty-msg{color:var(--muted);font-size:12px;font-style:italic;padding:8px 0}
 
@@ -65,7 +68,7 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
 @media(max-width:760px){.links{display:none}.hero{padding:35px 0}.hero-grid{grid-template-columns:1fr}.profile-card{max-width:260px}.news,.service-grid{grid-template-columns:1fr}.contact{display:block}.contact .btn{margin-top:10px}}
 </style>
 </head>
-<body>
+<body id="bodyTag">
 
 <header>
   <div class="wrap nav">
@@ -81,8 +84,8 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
       <a href="#contact">تواصل</a>
     </nav>
     <div style="display:flex;gap:6px;">
-      <button class="btn ghost" onclick="checkAuth('addNewsModal')"><i class="fa-solid fa-bullhorn"></i> خبر</button>
-      <button class="btn ghost" onclick="checkAuth('settingsModal')" style="padding:10px 10px;"><i class="fa-solid fa-gear"></i></button>
+      <button class="btn ghost admin-only" onclick="openModal('addNewsModal')"><i class="fa-solid fa-bullhorn"></i> خبر</button>
+      <button class="btn ghost" onclick="adminLogin()" title="تسجيل دخول المدير" style="padding:10px 10px;"><i class="fa-solid fa-lock" id="lockIcon"></i></button>
     </div>
   </div>
 </header>
@@ -107,7 +110,6 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
 
 <main class="wrap">
 
-  <!-- About -->
   <section class="section" id="about">
     <div class="section-head">
       <div>
@@ -117,16 +119,14 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
     </div>
   </section>
 
-  <!-- Grades Sections -->
   <section class="section" id="gradesSection">
     <div class="section-head">
       <div>
         <h2>اختر الصف الدراسي</h2>
-        <p>اضغط على أي صف لتظهر لك خانات إضافة وعرض المحاضرات والملازم والواجبات فوراً.</p>
+        <p>اضغط على أي صف لتجد المحاضرات والملازم والواجبات الخاصة به.</p>
       </div>
     </div>
 
-    <!-- أزرار الصفوف -->
     <div class="grades-nav" id="gradesNav">
       <div class="grade-tab active" onclick="switchGrade('grade1')">الأول المتوسط</div>
       <div class="grade-tab" onclick="switchGrade('grade2')">الثاني المتوسط</div>
@@ -136,11 +136,9 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
       <div class="grade-tab" onclick="switchGrade('grade6')">السادس العلمي</div>
     </div>
 
-    <!-- لوحات عرض الصفوف -->
     <div id="gradePanelsContainer"></div>
   </section>
 
-  <!-- News -->
   <section class="section" id="news">
     <div class="section-head">
       <div>
@@ -152,7 +150,6 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div id="noNews" style="display:none;text-align:center;padding:15px;color:var(--muted);">لا توجد أخبار حالياً.</div>
   </section>
 
-  <!-- Services -->
   <section class="section" id="services">
     <div class="section-head">
       <div>
@@ -166,7 +163,6 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
     </div>
   </section>
 
-  <!-- Contact -->
   <section class="section" id="contact">
     <div class="contact">
       <div>
@@ -183,7 +179,6 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
   <div class="wrap">© <span id="year"></span> الأستاذ أحمد البايلوجي — جميع الحقوق محفوظة</div>
 </footer>
 
-<!-- Modals -->
 <div class="modal" id="addItemModal">
   <div class="modal-card">
     <h3 id="modalTitle" style="margin-top:0;color:var(--navy);">إضافة عنصر جديد</h3>
@@ -224,19 +219,9 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
   </div>
 </div>
 
-<div class="modal" id="settingsModal">
-  <div class="modal-card">
-    <h3 style="margin-top:0;color:var(--navy);">إدارة البيانات</h3>
-    <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
-      <button class="btn primary" onclick="exportData()"><i class="fa-solid fa-download"></i> تنزيل نسخة احتياطية</button>
-      <button class="btn ghost" style="color:red;border-color:#ffcdd2;" onclick="clearAllData()"><i class="fa-solid fa-trash"></i> مسح البيانات</button>
-      <button class="btn ghost" style="color:var(--navy);border-color:var(--line);" onclick="closeModal('settingsModal')">إغلاق</button>
-    </div>
-  </div>
-</div>
-
 <script>
 const ADMIN_PASS = "yaalibio2003";
+let isAdmin = localStorage.getItem('ahmed_bio_is_admin') === 'true';
 
 const gradesData = [
   { id: 'grade1', name: 'الأول المتوسط' },
@@ -272,33 +257,73 @@ window.onload = function() {
   if(saved) {
     try { appData = JSON.parse(saved); } catch(e){}
   }
+  updateAdminUI();
   buildGradesUI();
   renderAll();
 };
+
+function adminLogin() {
+  if(isAdmin) {
+    if(confirm('هل تريد تسجيل الخروج من وضع الإدارة؟')) {
+      isAdmin = false;
+      localStorage.removeItem('ahmed_bio_is_admin');
+      updateAdminUI();
+      renderAll();
+    }
+  } else {
+    let p = prompt("أدخل كلمة المرور الخاصة بالإدارة:");
+    if(p === ADMIN_PASS) {
+      isAdmin = true;
+      localStorage.setItem('ahmed_bio_is_admin', 'true');
+      updateAdminUI();
+      renderAll();
+      alert("تم تسجيل الدخول بنجاح! أزرار الإضافة والحذف ظاهرة لك الآن.");
+    } else if(p !== null) {
+      alert("كلمة المرور غير صحيحة!");
+    }
+  }
+}
+
+function updateAdminUI() {
+  const body = document.getElementById('bodyTag');
+  const lock = document.getElementById('lockIcon');
+  if(isAdmin) {
+    body.classList.add('logged-in');
+    lock.className = "fa-solid fa-unlock";
+    lock.style.color = "var(--gold)";
+  } else {
+    body.classList.remove('logged-in');
+    lock.className = "fa-solid fa-lock";
+    lock.style.color = "white";
+  }
+}
 
 function saveStorage() {
   localStorage.setItem('ahmed_bio_app_data', JSON.stringify(appData));
 }
 
-function checkAuth(modalId, grade = '', cat = '') {
-  let p = prompt("أدخل كلمة المرور الخاصة بالإدارة:");
-  if(p === ADMIN_PASS) {
-    if(modalId === 'addItemModal') {
-      currentAddGrade = grade;
-      currentAddCategory = cat;
-      const catNames = { lectures: 'محاضرة', pdfs: 'ملزمة / ملخص', homeworks: 'واجب / امتحان' };
-      document.getElementById('modalTitle').textContent = `إضافة ${catNames[cat]} جديدة`;
-      openModal('addItemModal');
-    } else {
-      openModal(modalId);
-    }
-  } else if(p !== null) {
-    alert("كلمة المرور غير صحيحة!");
-  }
-}
-
 function openModal(id) { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+function openAddModal(grade, cat) {
+  if(!isAdmin) {
+    let p = prompt("هذا الزر خاص بالأستاذ أحمد. أدخل كلمة المرور للإضافة:");
+    if(p === ADMIN_PASS) {
+      isAdmin = true;
+      localStorage.setItem('ahmed_bio_is_admin', 'true');
+      updateAdminUI();
+      renderAll();
+    } else {
+      alert("كلمة المرور غير صحيحة!");
+      return;
+    }
+  }
+  currentAddGrade = grade;
+  currentAddCategory = cat;
+  const catNames = { lectures: 'محاضرة', pdfs: 'ملزمة / ملخص', homeworks: 'واجب / امتحان' };
+  document.getElementById('modalTitle').textContent = `إضافة ${catNames[cat]} جديدة`;
+  openModal('addItemModal');
+}
 
 function buildGradesUI() {
   const container = document.getElementById('gradePanelsContainer');
@@ -317,7 +342,7 @@ function buildGradesUI() {
       <div class="cat-section">
         <div class="cat-head">
           <h3><i class="fa-solid fa-video" style="color:var(--emerald);"></i> المحاضرات المرئية</h3>
-          <button class="btn emerald-btn" style="padding:5px 12px;font-size:12px;" onclick="checkAuth('addItemModal', '${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
+          <button class="btn emerald-btn admin-only" style="padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
         </div>
         <div class="grid" id="${g.id}_lectures"></div>
       </div>
@@ -326,7 +351,7 @@ function buildGradesUI() {
       <div class="cat-section">
         <div class="cat-head">
           <h3><i class="fa-solid fa-book-open" style="color:var(--blue);"></i> الملازم والملخصات</h3>
-          <button class="btn primary" style="padding:5px 12px;font-size:12px;" onclick="checkAuth('addItemModal', '${g.id}', 'pdfs')"><i class="fa-solid fa-plus"></i> إضافة ملزمة</button>
+          <button class="btn primary admin-only" style="padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'pdfs')"><i class="fa-solid fa-plus"></i> إضافة ملزمة</button>
         </div>
         <div class="grid" id="${g.id}_pdfs"></div>
       </div>
@@ -335,7 +360,7 @@ function buildGradesUI() {
       <div class="cat-section">
         <div class="cat-head">
           <h3><i class="fa-solid fa-pen-clip" style="color:var(--purple);"></i> الواجبات والامتحانات</h3>
-          <button class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:5px 12px;font-size:12px;" onclick="checkAuth('addItemModal', '${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة واجب</button>
+          <button class="btn ghost admin-only" style="color:var(--navy);border-color:var(--line);padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة واجب</button>
         </div>
         <div class="grid" id="${g.id}_homeworks"></div>
       </div>
@@ -371,7 +396,7 @@ function renderCategoryList(elementId, items, type, gradeId) {
   if(!container) return;
   container.innerHTML = '';
   if(!items || items.length === 0) {
-    container.innerHTML = `<div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً. استخدم زر الإضافة بالأعلى لإضافة أول عنصر.</div>`;
+    container.innerHTML = `<div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div>`;
     return;
   }
 
@@ -393,8 +418,10 @@ function renderCategoryList(elementId, items, type, gradeId) {
       actionBtn = `<a class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-link"></i> عرض الرابط</a>`;
     }
 
+    let delButtonHtml = isAdmin ? `<button class="del-btn" onclick="deleteItem('${gradeId}', '${getCategoryKey(type)}', '${item.id}')"><i class="fa-solid fa-trash"></i></button>` : '';
+
     card.innerHTML = `
-      <button class="del-btn" onclick="deleteItem('${gradeId}', '${getCategoryKey(type)}', '${item.id}')"><i class="fa-solid fa-trash"></i></button>
+      ${delButtonHtml}
       ${badge}
       <h4 style="margin-top:4px;">${item.title}</h4>
       <p>${item.desc || ''}</p>
@@ -427,12 +454,11 @@ function saveItem(e) {
 }
 
 function deleteItem(gradeId, catKey, itemId) {
-  let p = prompt("أدخل كلمة المرور لتأكيد الحذف:");
-  if(p === ADMIN_PASS) {
+  if(confirm('هل أنت متأكد من حذف هذا العنصر؟')) {
     appData.grades[gradeId][catKey] = appData.grades[gradeId][catKey].filter(i => i.id !== itemId);
     saveStorage();
     renderAll();
-  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
+  }
 }
 
 function renderNews(data) {
@@ -460,7 +486,7 @@ function renderNews(data) {
 function getEmbedUrl(url) {
   let id = '';
   if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split('?')[0];
-  else if(url.includes('watch?v=')) id = url.split('watch?v=')[1].split('&')[0];
+  else if(url.includes('watch?v=')) id = url.split('watch?v=').url.split('&')[0]; // Safe parsing fallback
   return `https://www.youtube.com/embed/${id}?autoplay=1`;
 }
 
@@ -474,24 +500,6 @@ function playYTVideo(url, title) {
 function closeVideoViewer() {
   document.getElementById('videoContainer').innerHTML = '';
   closeModal('videoViewerModal');
-}
-
-function exportData() {
-  const str = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(appData, null, 2));
-  const a = document.createElement('a');
-  a.href = str;
-  a.download = `ahmed_biology_backup_${Date.now()}.json`;
-  a.click();
-}
-
-function clearAllData() {
-  let p = prompt("أدخل كلمة المرور لتأكيد المسح:");
-  if(p === ADMIN_PASS) {
-    if(confirm('هل أنت متأكد من مسح كافة بيانات المنصة؟')) {
-      localStorage.removeItem('ahmed_bio_app_data');
-      location.reload();
-    }
-  } else if(p !== null) { alert("كلمة المرور غير صحيحة!"); }
 }
 </script>
 </body>
