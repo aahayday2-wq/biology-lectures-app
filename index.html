@@ -78,7 +78,7 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
     </a>
     <nav class="links">
       <a href="#about">من أنا</a>
-      <a href="#gradesSection">المراحل الدراسية</a>
+      <a href="#gradesSection">المراحل والأقسام</a>
       <a href="#news">الأخبار</a>
       <a href="#services">الخدمات</a>
       <a href="#contact">تواصل</a>
@@ -95,9 +95,9 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div>
       <div class="eyebrow">مرحباً بكم في منصتي الرسمية</div>
       <h1>المعرفة تصنع الفرق،<br>والإبداع يصنع الهوية.</h1>
-      <p>منصة الأستاذ أحمد البايلوجي لمتابعة المحاضرات، الملازم، والواجبات المدرسية بكل سهولة.</p>
+      <p>منصة الأستاذ أحمد البايلوجي لمتابعة المحاضرات، الملازم، الوسائل التعليمية للأطفال والواجبات المدرسية بكل سهولة.</p>
       <div class="actions">
-        <a class="btn primary" href="#gradesSection">تصفح المراحل الدراسية</a>
+        <a class="btn primary" href="#gradesSection">تصفح المراحل والأقسام</a>
       </div>
     </div>
     <div class="profile-card">
@@ -114,7 +114,7 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
     <div class="section-head">
       <div>
         <h2>أهلاً بك في المنصة</h2>
-        <p>اختر صفك الدراسي لتجد المحاضرات والملازم الخاصة بك.</p>
+        <p>اختر الصف أو القسم الدراسي لتجد المحتوى الخاص بك.</p>
       </div>
     </div>
   </section>
@@ -122,11 +122,12 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
   <section class="section" id="gradesSection">
     <div class="section-head">
       <div>
-        <h2>اختر الصف الدراسي</h2>
-        <p>اضغط على أي صف لتجد المحاضرات والملازم والواجبات الخاصة به.</p>
+        <h2>اختر الصف أو القسم</h2>
+        <p>اختر المرحلة الدراسية أو قسم الأطفال لتجد الوسائل التعليمية والمحاضرات الخاصة به.</p>
       </div>
     </div>
 
+    <!-- أزرار المراحل وقسم الأطفال -->
     <div class="grades-nav" id="gradesNav">
       <div class="grade-tab active" onclick="switchGrade('grade1')">الأول المتوسط</div>
       <div class="grade-tab" onclick="switchGrade('grade2')">الثاني المتوسط</div>
@@ -134,6 +135,7 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
       <div class="grade-tab" onclick="switchGrade('grade4')">الرابع العلمي</div>
       <div class="grade-tab" onclick="switchGrade('grade5')">الخامس العلمي</div>
       <div class="grade-tab" onclick="switchGrade('grade6')">السادس العلمي</div>
+      <div class="grade-tab" style="background:#e0f2fe;color:#0369a1;border-color:#bae6fd;" onclick="switchGrade('kids')">👶 الأطفال (وسائل تعليمية)</div>
     </div>
 
     <div id="gradePanelsContainer"></div>
@@ -183,11 +185,11 @@ footer{padding:18px 0;color:var(--muted);font-size:12px;text-align:center;border
   <div class="modal-card">
     <h3 id="modalTitle" style="margin-top:0;color:var(--navy);">إضافة عنصر جديد</h3>
     <form onsubmit="saveItem(event)">
-      <div class="form-group"><label>العنوان</label><input type="text" id="itemTitle" required placeholder="مثال: محاضرة الفصل الأول"></div>
+      <div class="form-group"><label>العنوان</label><input type="text" id="itemTitle" required placeholder="مثال: الوسيلة التعليمية الأولى"></div>
       <div class="form-group"><label>الرابط (يوتيوب أو PDF)</label><input type="url" id="itemUrl" required placeholder="https://..."></div>
       <div class="form-group"><label>وصف قصير (اختياري)</label><textarea id="itemDesc" rows="2" placeholder="ملاحظات..."></textarea></div>
       <div style="display:flex;gap:8px;margin-top:12px;">
-        <button type="submit" class="btn primary" style="flex:1;">حفظ ونشر</button>
+        <button type="submit" class="btn primary" style="flex:1;">حفظ</button>
         <button type="button" class="btn ghost" style="color:var(--navy);border-color:var(--line);" onclick="closeModal('addItemModal')">إلغاء</button>
       </div>
     </form>
@@ -229,7 +231,8 @@ const gradesData = [
   { id: 'grade3', name: 'الثالث المتوسط' },
   { id: 'grade4', name: 'الرابع العلمي' },
   { id: 'grade5', name: 'الخامس العلمي' },
-  { id: 'grade6', name: 'السادس العلمي' }
+  { id: 'grade6', name: 'السادس العلمي' },
+  { id: 'kids', name: '👶 الأطفال (وسائل تعليمية)' }
 ];
 
 let appData = {
@@ -239,10 +242,11 @@ let appData = {
     grade3: { lectures: [], pdfs: [], homeworks: [] },
     grade4: { lectures: [], pdfs: [], homeworks: [] },
     grade5: { lectures: [], pdfs: [], homeworks: [] },
-    grade6: { lectures: [], pdfs: [], homeworks: [] }
+    grade6: { lectures: [], pdfs: [], homeworks: [] },
+    kids: { lectures: [], pdfs: [], homeworks: [] }
   },
   news: [
-    { id: '1', date: 'تنويه', title: 'مرحباً بكم في منصة الأستاذ أحمد البايلوجي', content: 'تم تفعيل الأقسام الخاصة بكل صف دراسي بنجاح.' }
+    { id: '1', date: 'تنويه', title: 'مرحباً بكم في منصة الأستاذ أحمد البايلوجي', content: 'تم تفعيل قسم الأطفال والوسائل التعليمية بنجاح.' }
   ]
 };
 
@@ -253,7 +257,7 @@ let currentAddCategory = '';
 document.getElementById('year').textContent = new Date().getFullYear();
 
 window.onload = function() {
-  const saved = localStorage.getItem('ahmed_bio_app_data');
+  const saved = localStorage.getItem('ahmed_bio_global_data');
   if(saved) {
     try { appData = JSON.parse(saved); } catch(e){}
   }
@@ -277,7 +281,7 @@ function adminLogin() {
       localStorage.setItem('ahmed_bio_is_admin', 'true');
       updateAdminUI();
       renderAll();
-      alert("تم تسجيل الدخول بنجاح! أزرار الإضافة والحذف ظاهرة لك الآن.");
+      alert("تم تسجيل دخول المدير بنجاح!");
     } else if(p !== null) {
       alert("كلمة المرور غير صحيحة!");
     }
@@ -299,7 +303,7 @@ function updateAdminUI() {
 }
 
 function saveStorage() {
-  localStorage.setItem('ahmed_bio_app_data', JSON.stringify(appData));
+  localStorage.setItem('ahmed_bio_global_data', JSON.stringify(appData));
 }
 
 function openModal(id) { document.getElementById(id).classList.add('active'); }
@@ -320,7 +324,7 @@ function openAddModal(grade, cat) {
   }
   currentAddGrade = grade;
   currentAddCategory = cat;
-  const catNames = { lectures: 'محاضرة', pdfs: 'ملزمة / ملخص', homeworks: 'واجب / امتحان' };
+  const catNames = { lectures: 'فيديو / وسيلة', pdfs: 'ملزمة / ملخص', homeworks: 'نشاط / واجب' };
   document.getElementById('modalTitle').textContent = `إضافة ${catNames[cat]} جديدة`;
   openModal('addItemModal');
 }
@@ -335,14 +339,14 @@ function buildGradesUI() {
     panel.id = g.id;
     panel.innerHTML = `
       <div class="grade-title">
-        <span><i class="fa-solid fa-graduation-cap" style="color:var(--gold);"></i> قسم ${g.name}</span>
+        <span><i class="fa-solid fa-graduation-cap" style="color:var(--gold);"></i> ${g.name}</span>
       </div>
       
       <!-- Lectures -->
       <div class="cat-section">
         <div class="cat-head">
-          <h3><i class="fa-solid fa-video" style="color:var(--emerald);"></i> المحاضرات المرئية</h3>
-          <button class="btn emerald-btn admin-only" style="padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة محاضرة</button>
+          <h3><i class="fa-solid fa-video" style="color:var(--emerald);"></i> الفيديوهات والوسائل التعليمية</h3>
+          <button class="btn emerald-btn admin-only" style="padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'lectures')"><i class="fa-solid fa-plus"></i> إضافة وسيلة / فيديو</button>
         </div>
         <div class="grid" id="${g.id}_lectures"></div>
       </div>
@@ -359,8 +363,8 @@ function buildGradesUI() {
       <!-- Homeworks -->
       <div class="cat-section">
         <div class="cat-head">
-          <h3><i class="fa-solid fa-pen-clip" style="color:var(--purple);"></i> الواجبات والامتحانات</h3>
-          <button class="btn ghost admin-only" style="color:var(--navy);border-color:var(--line);padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة واجب</button>
+          <h3><i class="fa-solid fa-pen-clip" style="color:var(--purple);"></i> الأنشطة والواجبات</h3>
+          <button class="btn ghost admin-only" style="color:var(--navy);border-color:var(--line);padding:5px 12px;font-size:12px;" onclick="openAddModal('${g.id}', 'homeworks')"><i class="fa-solid fa-plus"></i> إضافة نشاط</button>
         </div>
         <div class="grid" id="${g.id}_homeworks"></div>
       </div>
@@ -383,7 +387,7 @@ function switchGrade(gradeId) {
 
 function renderAll() {
   gradesData.forEach(g => {
-    const gradeObj = appData.grades[g.id];
+    const gradeObj = appData.grades[g.id] || { lectures: [], pdfs: [], homeworks: [] };
     renderCategoryList(`${g.id}_lectures`, gradeObj.lectures, 'LECTURE', g.id);
     renderCategoryList(`${g.id}_pdfs`, gradeObj.pdfs, 'PDF', g.id);
     renderCategoryList(`${g.id}_homeworks`, gradeObj.homeworks, 'HW', g.id);
@@ -408,13 +412,13 @@ function renderCategoryList(elementId, items, type, gradeId) {
     let actionBtn = '';
 
     if(type === 'LECTURE') {
-      badge = `<span class="badge badge-video">فيديو يوتيوب</span>`;
+      badge = `<span class="badge badge-video">فيديو / وسيلة</span>`;
       actionBtn = `<button class="btn emerald-btn" style="padding:4px 9px;font-size:11px;" onclick="playYTVideo('${getEmbedUrl(item.url)}', '${item.title}')"><i class="fa-solid fa-play"></i> مشاهدة</button>`;
     } else if(type === 'PDF') {
       badge = `<span class="badge badge-pdf">ملف PDF / ملزمة</span>`;
       actionBtn = `<a class="btn primary" style="padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-file-pdf"></i> فتح الملف</a>`;
     } else {
-      badge = `<span class="badge badge-hw">واجب / امتحان</span>`;
+      badge = `<span class="badge badge-hw">نشاط / واجب</span>`;
       actionBtn = `<a class="btn ghost" style="color:var(--navy);border-color:var(--line);padding:4px 9px;font-size:11px;" href="${item.url}" target="_blank"><i class="fa-solid fa-link"></i> عرض الرابط</a>`;
     }
 
@@ -446,11 +450,16 @@ function saveItem(e) {
     desc: document.getElementById('itemDesc').value
   };
 
+  if(!appData.grades[currentAddGrade]) {
+    appData.grades[currentAddGrade] = { lectures: [], pdfs: [], homeworks: [] };
+  }
   appData.grades[currentAddGrade][currentAddCategory].unshift(newItem);
+  
   saveStorage();
   renderAll();
   closeModal('addItemModal');
   e.target.reset();
+  alert("تمت الإضافة بنجاح!");
 }
 
 function deleteItem(gradeId, catKey, itemId) {
@@ -486,7 +495,7 @@ function renderNews(data) {
 function getEmbedUrl(url) {
   let id = '';
   if(url.includes('youtu.be/')) id = url.split('youtu.be/')[1].split('?')[0];
-  else if(url.includes('watch?v=')) id = url.split('watch?v=').url.split('&')[0]; // Safe parsing fallback
+  else if(url.includes('watch?v=')) id = url.split('watch?v=').url.split('&')[0];
   return `https://www.youtube.com/embed/${id}?autoplay=1`;
 }
 
