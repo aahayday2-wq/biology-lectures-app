@@ -1,19 +1,18 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl"><head>
+<html lang="ar" dir="rtl">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>الأستاذ أحمد البايولوجي - منصة التعليم الرقمية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #0b132b;
             --card-dark: #1c2541;
             --accent-gold: #fbbf24;
             --accent-green: #10b981;
-            --accent-green-hover: #059669;
             --text-light: #ffffff;
             --text-sub: #94a3b8;
-            --danger: #ef4444;
             --border-color: #2e3856;
         }
 
@@ -55,17 +54,6 @@
             padding: 2px 8px;
             border-radius: 6px;
             font-size: 0.8rem;
-        }
-
-        .admin-toggle {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            padding: 6px 14px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
         }
 
         .hero {
@@ -193,21 +181,6 @@
             padding-bottom: 0.8rem;
         }
 
-        .admin-btn {
-            display: none !important; /* مخفي تماماً عن الطلاب */
-        }
-
-        .btn-add {
-            background: var(--accent-green);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
         .item-list {
             display: flex;
             flex-direction: column;
@@ -240,12 +213,6 @@
             font-weight: 700;
         }
 
-        .item-actions {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
         .btn-watch {
             background: var(--accent-green);
             color: white;
@@ -256,79 +223,11 @@
             font-weight: 700;
         }
 
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.15);
-            color: var(--danger);
-            border: 1px solid var(--danger);
-            padding: 6px 10px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            display: none; /* مخفي للطلاب */
-        }
-
         .empty-msg {
             text-align: center;
             color: var(--text-sub);
             padding: 1.5rem;
             font-size: 0.85rem;
-        }
-
-        .modal {
-            display: none;
-            position: fixed;
-            top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.7);
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 1rem;
-        }
-
-        .modal-content {
-            background: var(--card-dark);
-            padding: 1.5rem;
-            border-radius: 14px;
-            width: 100%;
-            max-width: 450px;
-            border: 1px solid var(--border-color);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            margin-bottom: 4px;
-            color: var(--text-sub);
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            background: #0f172a;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: white;
-            font-size: 0.9rem;
-        }
-
-        .modal-actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 8px;
-            margin-top: 1.2rem;
-        }
-
-        .btn-cancel {
-            background: #334155;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 6px;
-            cursor: pointer;
         }
     </style>
 </head>
@@ -339,7 +238,6 @@
             الأستاذ أحمد البايولوجي
             <span>خبرة</span>
         </div>
-        <button class="admin-toggle" onclick="toggleAdmin()">🔐 وضع الأستاذ</button>
     </nav>
 
     <div class="hero">
@@ -375,133 +273,43 @@
                 <span>🎓 قسم <span id="current-grade-name">الأول المتوسط</span></span>
             </div>
             
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                <span style="font-weight: 700; font-size: 0.95rem;">🎥 المحاضرات المرئية</span>
-                <button class="btn-add admin-control" id="addLecBtn" style="display: inline-block;" onclick="openModal('lecture')">+ إضافة محاضرة</button>
-            </div>
-
-            <div class="item-list" id="lectures-container"><div class="item-card">
-                    <div class="item-info">
-                        <span class="tag">فيديو يوتيوب</span>
-                        <h4>محاضرة اولى جزء اول</h4>
-                    </div>
-                    <div class="item-actions">
-                        <a href="https://www.youtube.com" target="_blank" class="btn-watch">▶ مشاهدة</a>
-                        <button class="btn-delete" style="display:inline-block;" onclick="deleteItem(1729000001)">🗑️</button>
-                    </div>
-                </div></div>
+            <div style="font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">🎥 المحاضرات المرئية</div>
+            <div class="item-list" id="lectures-container"></div>
         </div>
 
         <!-- الملازم -->
         <div class="content-box">
             <div class="box-title">
                 <span>📚 الملازم والملخصات</span>
-                <button class="btn-add admin-control" id="addPdfBtn" style="display: inline-block; background: rgb(245, 158, 11);" onclick="openModal('pdf')">+ إضافة ملزمة</button>
             </div>
-            <div class="item-list" id="pdfs-container"><div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div></div>
+            <div class="item-list" id="pdfs-container"></div>
         </div>
 
         <!-- الواجبات -->
         <div class="content-box">
             <div class="box-title">
                 <span>📝 الواجبات والامتحانات</span>
-                <button class="btn-add admin-control" id="addQuizBtn" style="display: inline-block; background: rgb(99, 102, 241);" onclick="openModal('quiz')">+ إضافة واجب</button>
             </div>
-            <div class="item-list" id="quizzes-container"><div class="empty-msg">لا توجد عناصر مضافة في هذا القسم حالياً.</div></div>
+            <div class="item-list" id="quizzes-container"></div>
         </div>
 
-    </div>
-
-    <!-- نافذة الإضافة -->
-    <div class="modal" id="addModal" style="display: none;">
-        <div class="modal-content">
-            <h3 id="modalTitle">إضافة عنصر جديد</h3>
-            <div class="form-group">
-                <label>العنوان</label>
-                <input type="text" id="itemTitle" placeholder="مثال: محاضرة الفصل الأول">
-            </div>
-            <div class="form-group">
-                <label>الرابط (رابط يوتيوب أو ملف)</label>
-                <input type="url" id="itemUrl" placeholder="https://youtube.com/watch?v=...">
-            </div>
-            <div class="modal-actions">
-                <button class="btn-cancel" onclick="closeModal()">إلغاء</button>
-                <button class="btn-add" onclick="saveItem()">حفظ التغيرات</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة تصدير الكود لنشره للطلاب -->
-    <div class="modal" id="syncModal">
-        <div class="modal-content">
-            <h3>تم التعديل بنجاح! لنشر المحاضرة للطلاب:</h3>
-            <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:10px;">انسخ الكود أدناه بالكامل واستبدله في ملف index.html على GitHub لكي تظهر المحاضرة لكل الطلاب:</p>
-            <div class="form-group">
-                <textarea id="generatedCode" rows="8" readonly="" onclick="this.select()"></textarea>
-            </div>
-            <div class="modal-actions">
-                <button class="btn-add" onclick="copyAndClose()">نسخ الكود وإغلاق</button>
-            </div>
-        </div>
     </div>
 
     <script>
-        // الرمز السري لوضع الأستاذ
-        const ADMIN_PIN = "1234";
-        let isAdmin = localStorage.getItem('bio_admin_logged') === 'true';
-
         let currentGrade = 'الأول المتوسط';
-        let currentType = 'lecture';
 
-        // قاعدة بيانات المنصة (تضاف هنا المحاضرات لتظهر للجميع)
+        // قاعدة بيانات المحاضرات والملازم التي تظهر للطلاب
         let data = [
-          {
-                    "id": 1729000001,
-                    "grade": "الأول المتوسط",
-                    "type": "lecture",
-                    "title": "محاضرة اولى جزء اول",
-                    "url": "https://www.youtube.com"
-          }
-];
-
-        // تطبيق حالة الدخول فور الفتح
-        window.onload = function() {
-            if(isAdmin) {
-                activateAdminUI();
+            {
+                "grade": "الأول المتوسط",
+                "type": "lecture",
+                "title": "محاضرة اولى جزء اول",
+                "url": "https://www.youtube.com"
             }
-            renderAll();
-        }
+        ];
 
         function scrollToGrades() {
             document.getElementById('grades-section').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        function toggleAdmin() {
-            if(!isAdmin) {
-                let pin = prompt("أدخل الرقم السري للتحكم في المنصة:");
-                if(pin === ADMIN_PIN) {
-                    isAdmin = true;
-                    localStorage.setItem('bio_admin_logged', 'true');
-                    activateAdminUI();
-                    alert("تم تفعيل وضع الأستاذ بنجاح!");
-                } else if(pin) {
-                    alert("الرمز السري غير صحيح!");
-                }
-            } else {
-                isAdmin = false;
-                localStorage.removeItem('bio_admin_logged');
-                deactivateAdminUI();
-                alert("تم الخروج من وضع الأستاذ وإقفال المنصة.");
-            }
-            renderAll();
-        }
-
-        function activateAdminUI() {
-            document.querySelectorAll('.admin-control').forEach(el => el.style.display = 'inline-block');
-        }
-
-        function deactivateAdminUI() {
-            document.querySelectorAll('.admin-control').forEach(el => el.style.display = 'none');
         }
 
         function selectGrade(grade) {
@@ -536,10 +344,6 @@
             filtered.forEach(item => {
                 let card = document.createElement('div');
                 card.className = 'item-card';
-                
-                // زر الحذف يظهر فقط لو كان الأستاذ مسجل دخوله
-                let deleteBtn = isAdmin ? `<button class="btn-delete" style="display:inline-block;" onclick="deleteItem(${item.id})">🗑️</button>` : '';
-                
                 card.innerHTML = `
                     <div class="item-info">
                         <span class="tag">${badgeText}</span>
@@ -547,73 +351,13 @@
                     </div>
                     <div class="item-actions">
                         <a href="${item.url}" target="_blank" class="btn-watch">${btnText}</a>
-                        ${deleteBtn}
                     </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function openModal(type) {
-            if(!isAdmin) {
-                alert("غير مسموح لك بالإضافة، يرجى تسجيل الدخول كأستاذ أولاً!");
-                return;
-            }
-            currentType = type;
-            document.getElementById('addModal').style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('addModal').style.display = 'none';
-            document.getElementById('itemTitle').value = '';
-            document.getElementById('itemUrl').value = '';
-        }
-
-        function saveItem() {
-            let title = document.getElementById('itemTitle').value;
-            let url = document.getElementById('itemUrl').value;
-
-            if(!title || !url) {
-                alert('يرجى إدخال العنوان والرابط');
-                return;
-            }
-
-            data.push({
-                id: Date.now(),
-                grade: currentGrade,
-                type: currentType,
-                title: title,
-                url: url
-            });
-
-            closeModal();
-            renderAll();
-            showSyncModal();
-        }
-
-        function deleteItem(id) {
-            if(confirm('هل أنت متأكد من حذف هذا العنصر؟')) {
-                data = data.filter(d => d.id !== id);
-                renderAll();
-                showSyncModal();
-            }
-        }
-
-        function showSyncModal() {
-            let fullHtml = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
-            let updatedScript = fullHtml.replace(/let data = \[[\s\S]*?\];/, "let data = " + JSON.stringify(data, null, 12) + ";");
-            document.getElementById('generatedCode').value = updatedScript;
-            document.getElementById('syncModal').style.display = 'flex';
-        }
-
-        function copyAndClose() {
-            let copyText = document.getElementById('generatedCode');
-            copyText.select();
-            document.execCommand("copy");
-            alert("تم نسخ الكود بنجاح! الآن اذهب إلى GitHub والصقه في ملف index.html ليظهر لكل الطلاب مباشرة.");
-            document.getElementById('syncModal').style.display = 'none';
-        }
+        renderAll();
     </script>
-
-
-</body></html>
+</body>
+</html>
