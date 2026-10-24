@@ -383,20 +383,20 @@
             <div class="item-list" id="lectures-container"><div class="item-card">
                     <div class="item-info">
                         <span class="tag">فيديو يوتيوب</span>
-                        <h4>محاضرة اولى جزء اول</h4>
-                    </div>
-                    <div class="item-actions">
-                        <a href="https://www.youtube.com" target="_blank" class="btn-watch">▶ مشاهدة</a>
-                        <button class="btn-delete" style="display:inline-block;" onclick="deleteItem(1729000001)">🗑️</button>
-                    </div>
-                </div><div class="item-card">
-                    <div class="item-info">
-                        <span class="tag">فيديو يوتيوب</span>
                         <h4>G</h4>
                     </div>
                     <div class="item-actions">
                         <a href="https://youtu.be/0Hx2eh2uFIA?si=SrE5hTAaRbE_MU6m" target="_blank" class="btn-watch">▶ مشاهدة</a>
                         <button class="btn-delete" style="display:inline-block;" onclick="deleteItem(1792841254006)">🗑️</button>
+                    </div>
+                </div><div class="item-card">
+                    <div class="item-info">
+                        <span class="tag">فيديو يوتيوب</span>
+                        <h4>محاضرة اولى جزء ثاني</h4>
+                    </div>
+                    <div class="item-actions">
+                        <a href="https://youtu.be/0Hx2eh2uFIA?si=SrE5hTAaRbE_MU6m" target="_blank" class="btn-watch">▶ مشاهدة</a>
+                        <button class="btn-delete" style="display:inline-block;" onclick="deleteItem(1792841455636)">🗑️</button>
                     </div>
                 </div></div>
         </div>
@@ -441,7 +441,7 @@
     </div>
 
     <!-- نافذة تصدير الكود لنشره للطلاب -->
-    <div class="modal" id="syncModal">
+    <div class="modal" id="syncModal" style="display: none;">
         <div class="modal-content">
             <h3>تم التعديل بنجاح! لنشر المحاضرة للطلاب:</h3>
             <p style="font-size:0.85rem; color:var(--text-sub); margin-bottom:10px;">انسخ الكود أدناه بالكامل واستبدله في ملف index.html على GitHub لكي تظهر المحاضرة لكل الطلاب:</p>
@@ -465,17 +465,17 @@
         // قاعدة بيانات المنصة (تضاف هنا المحاضرات لتظهر للجميع)
         let data = [
           {
-                    "id": 1729000001,
-                    "grade": "الأول المتوسط",
-                    "type": "lecture",
-                    "title": "محاضرة اولى جزء اول",
-                    "url": "https://www.youtube.com"
-          },
-          {
                     "id": 1792841254006,
                     "grade": "الأول المتوسط",
                     "type": "lecture",
                     "title": "G",
+                    "url": "https://youtu.be/0Hx2eh2uFIA?si=SrE5hTAaRbE_MU6m"
+          },
+          {
+                    "id": 1792841455636,
+                    "grade": "الأول المتوسط",
+                    "type": "lecture",
+                    "title": "محاضرة اولى جزء ثاني",
                     "url": "https://youtu.be/0Hx2eh2uFIA?si=SrE5hTAaRbE_MU6m"
           }
 ];
